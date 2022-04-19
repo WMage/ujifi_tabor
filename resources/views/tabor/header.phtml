@@ -1,0 +1,28 @@
+<?php
+/** @var MainTemplate $tplData */
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <meta charset="UTF-8">
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <title><?= $tplData->getVar('title') ?></title>
+    <link rel="icon" href="data:;base64,=">
+    <meta name="author" content="White Mage">
+    <?= $tplData->fetchJsFiles() ?>
+</head>
+
+<body>
+<?php
+/**
+ * @var ModelMenu $item
+ */
+foreach (MainSettings::get('items', 'menu') as $item) {
+    if ($item->isVisible()) {
+        echo "<a href='" . $item->getLink() . "' >" . $item->getName() . "</a>, ";
+    }
+}
+?>

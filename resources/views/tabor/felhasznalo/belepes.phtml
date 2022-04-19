@@ -1,0 +1,23 @@
+<?php
+/** @var MainTemplate $tplData */
+?>
+<form method="post">
+    <table border="1">
+        <tr>
+            <td>Tábor kiválasztása:</td>
+            <td><?= MainTemplate::generateSelect('tabor_id', $tplData->getVar('tabor_list'), $tplData->getVar('tabor_id'), array('ID', 'nev')) ?></td>
+        </tr>
+        <tr>
+            <td>Felhasználónév</td>
+            <td><input name="felhasznalonev" title="Név"></td>
+        </tr>
+        <tr>
+            <td>Jelszó</td>
+            <td><input name="jelszo" type="password" title="Jelszó"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input name="login" value="Belép" title="Belép" type="submit"></td>
+        </tr>
+    </table>
+
+</form>
