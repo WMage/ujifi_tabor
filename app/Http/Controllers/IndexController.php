@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\TaborRepository;
+use App\Service\Template;
 
 class IndexController extends Controller
 {
@@ -22,8 +23,7 @@ class IndexController extends Controller
     {
         $tabor_list = $this->taborRepository->getElerhetoTaborok();
         $tabor_id = $this->taborRepository->getKijeloltTaborId();
-        $tabor_napok_list = [];
-        $selected_tabor_napok_list = [];
+        $tabor_napok_list = $selected_tabor_napok_list = [["ID" => 1, "datum" => Template::getNOWStr()]];
         $dieta_list = [];
         $selected_dieta_list = [];
         $segito_munka_list = [];

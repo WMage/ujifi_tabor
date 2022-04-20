@@ -21,13 +21,12 @@ class TaborRepository extends MainRepository
             $this->model::select(["ID", "nev"])
                 ->whereRaw("REG_start < NOW()")
                 ->whereRaw("REG_end > NOW()")
-                ->getQuery()->getArray();
+                ->get()->toArray();
     }
 
     public function getOsszesTaborok(): array
     {
-        return
-            $this->model::select(["ID", "nev"])->getQuery()->getArray();
+        return $this->model::select(["ID", "nev"])->get()->toArray();
     }
 
     public function setKijeloltTaborId(int $taborId)

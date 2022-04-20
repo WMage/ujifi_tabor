@@ -27,16 +27,4 @@ class JelentkezoRepository extends MainRepository
                 ->get()
         );
     }
-
-    public function azonosit($taborId, $felhasznalonev, $jelszo)
-    {
-        return $this->model::/*select([
-            "ID", "felhasznalonev", "jogszint"
-        ])
-            ->*/
-        where("taborId", "=", $taborId)
-            ->where("felhasznalonev", "=", $felhasznalonev)
-            ->where("jelszo", "=", $this->model->encryptPw($jelszo))
-            ->get();
-    }
 }
