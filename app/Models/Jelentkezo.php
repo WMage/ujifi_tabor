@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 
 /**
  * @property int $ID
@@ -27,6 +28,7 @@ use Carbon\Carbon;
  *
  * --relations
  * @property Szerepkor szerepkor
+ * @property Collection|Jog[] jogok
  */
 class Jelentkezo extends BaseModel
 {
@@ -39,5 +41,27 @@ class Jelentkezo extends BaseModel
             "ID",
             "ID_szerepkor"
         );
+    }
+
+    public function jogok()
+    {
+        return $this
+            ->hasManyThrough(
+                Jog::class,
+                JelentkezoJog::class,
+                "ID_jelentkezo",
+                "ID",
+                "ID",
+                "ID_jog"
+            )
+            ->select([
+                Jog::getTableName() . ".*",
+                JelentkezoJog::getTableName() . ".szerkesztheti"
+            ]);
+    }
+
+    public function getTeljesNev(): string
+    {
+        return implode(" ", [$this->nev_elotag, $this->nev_vezetek, $this->nev_kereszt]);
     }
 }

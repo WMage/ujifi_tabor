@@ -6,31 +6,86 @@
  * Time: 19:59
  */
 
+/** @var \Illuminate\Support\Collection|\App\Models\Csoport[] $csoportok */
+/** @var \Illuminate\Support\Collection|\App\Models\Jelentkezo[] $jelentkezok */
 use \App\Service\Template;
 
 ?>
 @extends('layouts.app')
 
 @section('content')
-    <h3>Új csoport létrehozása</h3>
-    <form method="post">
-        <table border="1">
-            <tr>
-
-            </tr>
-        </table>
-    </form>
-    <h3>Eddigi csoportok</h3>
-    <table border="1">
-        <tr>
-            <td>Név</td>
-            <td>Találkozási pont</td>
-            <td>Vezető 1</td>
-            <td>Vezető 2</td>
-            <td>Vezető 3</td>
-            <td>Művelet</td>
-        </tr>
-    </table>
-
+    @if(userCan("groups.view"))
+        @if(userCan("groups.manage", true))
+            <h3>@lang('csoport.uj_csoport')</h3>
+            <form method="post" action="">
+                <table border="1">
+                    <tr>
+                        <td>@lang('altalanos.nev')</td>
+                        <td>
+                            <input name="csoport_nev" title="csoport_nev" value="{{old('csoport_nev')}}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@lang('csoport.csoport_hely')</td>
+                        <td>
+                            <input name="csoport_hely" title="csoport_hely" value="{{old('csoport_hely')}}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@lang('csoport.vezeto') 1</td>
+                        <td>
+                            <?= Template::generateSelect(
+                                "csoport_vezeto1",
+                                $jelentkezok,
+                                old('csoport_vezeto1'),
+                                ["ID", "getTeljesNev"]
+                            )?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@lang('csoport.vezeto') 2</td>
+                        <td>
+                            <?= Template::generateSelect(
+                                "csoport_vezeto2",
+                                $jelentkezok,
+                                old('csoport_vezeto2'),
+                                ["ID", "getTeljesNev"]
+                            )?>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        @endif
+        <h3>@lang('csoport.letezo_csoportok')</h3>
+        @if(empty($csoportok))
+            @lang('csoport.nincsenek_csoportok')
+        @else
+            <table border="1">
+                <tr>
+                    <td>@lang('altalanos.nev')</td>
+                    <td>@lang('csoport.csoport_hely')</td>
+                    <td>@lang('csoport.vezeto') 1</td>
+                    <td>@lang('csoport.vezeto') 2</td>
+                    @if(userCan("groups.manage", true))
+                        <td>@lang('altalanos.muvelet')</td>
+                    @endif
+                </tr>
+                @foreach($csoportok as $csoport)
+                    <tr>
+                        <td>{{$csoport->nev}}</td>
+                        <td>{{$csoport->hely}}</td>
+                        <td>{{$csoport->vezeto1  ? $csoport->vezeto1->getTeljesNev() : ""}}</td>
+                        <td>{{$csoport->vezeto2  ? $csoport->vezeto2->getTeljesNev() : ""}}</td>
+                        @if(userCan("groups.manage", true))
+                            <td>
+                                szerkesztés
+                                törlés
+                            </td>
+                        @endif
+                    </tr>
+                @endforeach
+            </table>
+        @endif
+    @endif
 
 @endsection

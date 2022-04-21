@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 //Route::get('/', function () { return view('welcome');});
 Route::get("/", "IndexController@index");
-Route::get("admin", "AdminController@index");
+Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/admin/groups', 'AdminController@groups')->name('admin');
 
 Auth::routes(["register" => false, "reset" => false]);
 
-Route::get('/admin', 'AdminController@index')->name('admin');

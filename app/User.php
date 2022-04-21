@@ -3,23 +3,33 @@
 namespace App;
 
 use App\Models\Jelentkezo;
-use App\Repositories\JelentkezoRepository;
+use App\Models\Jog;
 use App\Repositories\TaborRepository;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Carbon;
 
 /**
  * Class User
  * @package App
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property Carbon|string $email_verified_at
+ * @property string $password
+ * @property string $remember_token
+ * @property int $access_level
+ * @property Carbon|string $created_at
+ * @property Carbon|string $updated_at
  *
  * --relations
  * @property Jelentkezo jelentkezo
  */
 class User extends Authenticatable
 {
-    private $jogok = [];
     use Notifiable;
+    private $jogok = [];
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +37,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'access_level'
     ];
 
     /**
@@ -46,7 +56,18 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'access_level' => 'int',
     ];
+
+    public function isAdmin(): bool
+    {
+        return $this->access_level > 1;
+    }
+
+    public function isReader(): bool
+    {
+        return $this->access_level > 0;
+    }
 
     /**
      * @param string $jog
@@ -56,7 +77,16 @@ class User extends Authenticatable
      */
     public function hasPerm(string $jog, bool $szerkesztheti): bool
     {
-        return ($this->getOsszesJog()[$jog] ?? -1) >= (int)$szerkesztheti;
+        $vanJog = false;
+        $vanJog =
+            $this->isAdmin() ||
+            (!$szerkesztheti && $this->isReader())
+            (($vanJog = ($this->getOsszesJog()[$jog] ?? (new Jog()))->szerkesztheti) === $szerkesztheti) ||
+            $vanJog;
+        if ($vanJog && $szerkesztheti && (TaborRepository::getInstance()->getKijeloltTabor()->lezarult())) {
+            return $this->isAdmin();
+        }
+        return $vanJog;
     }
 
     /**
@@ -64,8 +94,17 @@ class User extends Authenticatable
      */
     public function getOsszesJog(): array
     {
-        $szerepkorJogok = $this->jelentkezo->szerepkor->jogok->pluck("nev","alias")->toArray();
-        return $szerepkorJogok;
+        if (empty($this->jogok)) {
+            $szerepkorJogok = $this->jelentkezo->szerepkor->jogok;
+            $jelentkezoJogok = $this->jelentkezo->jogok;
+            foreach ($szerepkorJogok as $k => $jog) {
+                $this->jogok[$jog->alias] = $jog;
+            }
+            foreach ($jelentkezoJogok as $k => $jog) {
+                $this->jogok[$jog->alias] = $jog;
+            }
+        }
+        return $this->jogok;
     }
 
     /**

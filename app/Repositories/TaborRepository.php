@@ -10,6 +10,12 @@ namespace App\Repositories;
 
 use App\Models\Tabor;
 
+/**
+ * Class TaborRepository
+ * @package App\Repositories
+ *
+ * @method static TaborRepository getInstance()
+ */
 class TaborRepository extends MainRepository
 {
     /** @var string|Tabor */
@@ -37,5 +43,13 @@ class TaborRepository extends MainRepository
     public function getKijeloltTaborId(): ?int
     {
         return $this->getClassSessionData("tabor_id");
+    }
+
+    public function getKijeloltTabor(): ?Tabor
+    {
+        if(empty($taborId = $this->getKijeloltTaborId())){
+            return null;
+        }
+        return $this->model->find($taborId);
     }
 }

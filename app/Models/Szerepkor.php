@@ -19,13 +19,18 @@ class Szerepkor extends BaseModel
 
     public function jogok()
     {
-        return $this->hasManyThrough(
-            Jog::class,
-            SzerepkorJog::class,
-            "ID_szerepkor",
-            "ID",
-            "ID",
-            "ID_jog"
-        );
+        return $this
+            ->hasManyThrough(
+                Jog::class,
+                SzerepkorJog::class,
+                "ID_szerepkor",
+                "ID",
+                "ID",
+                "ID_jog"
+            )
+            ->select([
+                Jog::getTableName() . ".*",
+                SzerepkorJog::getTableName() . ".szerkesztheti"
+            ]);
     }
 }

@@ -10,11 +10,28 @@ if (!function_exists("userCan")) {
      * @param string $jog
      * @param bool $szerkesztheti (true->igen, false->csak megtekintés)
      * @return bool
+     * @throws ReflectionException
      */
-    function userCan(string $jog, bool $szerkesztheti): bool
+    function userCan(string $jog, bool $szerkesztheti = false): bool
     {
         /** @var \App\User $user */
         $user = auth()->user();
         return $user->hasPerm($jog, $szerkesztheti);
+    }
+}
+if (!function_exists("userCanException")) {
+    /**
+     * @param string $jog
+     * @param bool $szerkesztheti (true->igen, false->csak megtekintés)
+     * @return bool
+     * @throws ReflectionException
+     * @throws \App\Exception\PermissionMissingException
+     */
+    function userCanException(string $jog, bool $szerkesztheti = false): bool
+    {
+        if(!userCan($jog, $szerkesztheti)){
+            throw new \App\Exception\PermissionMissingException($jog, $szerkesztheti);
+        }
+        return true;
     }
 }
