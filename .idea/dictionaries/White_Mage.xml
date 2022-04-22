@@ -1,28 +1,47 @@
 <component name="ProjectDictionaryState">
   <dictionary name="White Mage">
     <words>
+      <w>akik</w>
       <w>altalanos</w>
       <w>authenticatable</w>
       <w>azonosit</w>
       <w>csop</w>
+      <w>csoportba</w>
+      <w>csoportvezetők</w>
+      <w>csopvez</w>
       <w>ebed</w>
       <w>eddigi</w>
       <w>elerheto</w>
       <w>eloleg</w>
+      <w>ertek</w>
+      <w>ertekek</w>
+      <w>fejlec</w>
+      <w>fejlecek</w>
       <w>felhasznalo</w>
       <w>felhasznalonev</w>
       <w>ferohely</w>
+      <w>fillable</w>
+      <w>hozzaad</w>
+      <w>hozzaadasa</w>
+      <w>hozzáadása</w>
       <w>jelenlet</w>
       <w>jelentkezok</w>
       <w>jelszo</w>
       <w>jogok</w>
       <w>jogszint</w>
       <w>kijelolt</w>
+      <w>kulcsok</w>
       <w>lastmod</w>
+      <w>lehetseges</w>
       <w>letezo</w>
+      <w>letrehozas</w>
       <w>lezarult</w>
+      <w>létrehozás</w>
       <w>létrehozása</w>
       <w>megerkezett</w>
+      <w>mezok</w>
+      <w>munkak</w>
+      <w>munkakkal</w>
       <w>muvelet</w>
       <w>művelet</w>
       <w>nelkuli</w>
@@ -33,15 +52,25 @@
       <w>reggeli</w>
       <w>szallasszoba</w>
       <w>szerepkor</w>
+      <w>szerkeszt</w>
+      <w>szerkesztes</w>
       <w>szerkesztheti</w>
+      <w>szerkesztés</w>
       <w>szint</w>
       <w>taborok</w>
       <w>tagok</w>
       <w>találkozási</w>
+      <w>tartoznak</w>
       <w>tizorai</w>
+      <w>torles</w>
+      <w>torol</w>
+      <w>törlés</w>
       <w>uzsonna</w>
       <w>vacsora</w>
       <w>varos</w>
+      <w>vezetett</w>
+      <w>vezeti</w>
+      <w>vezetok</w>
     </words>
   </dictionary>
 </component>

@@ -28,6 +28,7 @@ use Illuminate\Support\Collection;
  *
  * --relations
  * @property Szerepkor szerepkor
+ * @property Csoport csoport
  * @property Collection|Jog[] jogok
  * @property Collection|Segitomunka[] munkak
  */
@@ -82,6 +83,30 @@ class Jelentkezo extends BaseModel
             "ID",
             "ID",
             "ID_segito_munka"
+        );
+    }
+
+    public function csoport()
+    {
+        return $this->hasOne(
+            Csoport::class,
+            "ID",
+            "ID_csoport"
+        );
+    }
+
+    public function getVezetettCsoport()
+    {
+        return $this->belongsTo(
+            Csoport::class,
+            "ID",
+            "ID_vezeto1"
+        )->get()->merge(
+            $this->belongsTo(
+                Csoport::class,
+                "ID",
+                "ID_vezeto2"
+            )->get()
         );
     }
 

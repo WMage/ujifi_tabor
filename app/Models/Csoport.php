@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 /**
@@ -17,6 +18,9 @@ use Illuminate\Support\Collection;
  * @property Jelentkezo $vezeto2
  * @property Tabor $tabor
  * @property Collection|Jelentkezo[] $tagok
+ *
+ * -scopes
+ * @method static Builder VezetiE(int $jelentkezoId)
  */
 class Csoport extends BaseModel
 {
@@ -53,6 +57,18 @@ class Csoport extends BaseModel
         );
     }
 
+    public function getVezetok(): Collection
+    {
+        $ret = collect([]);
+        if ($this->vezeto1) {
+            $ret->add($this->vezeto1);
+        }
+        if ($this->vezeto2) {
+            $ret->add($this->vezeto2);
+        }
+        return $ret;
+    }
+
     public function tagok()
     {
         return $this->hasMany(
@@ -69,6 +85,11 @@ class Csoport extends BaseModel
             "ID_tabor",
             "ID"
         );
+    }
+
+    public function scopeVezetiE(Builder $builder, int $jelentkezoID)
+    {
+        return $builder->where("ID_vezeto1", "=", $jelentkezoID)->orWhere("ID_vezeto2", "=", $jelentkezoID);
     }
 
 }

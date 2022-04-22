@@ -9,5 +9,8 @@
 return [
     "nev" => "Név",
     "muvelet" => "Művelet",
-    "szerkesztes" => "szerkesztés",
+    "szerkesztes" => "Szerkesztés",
+    "torles" => "Törlés",
+    "uj" => "Új",
+    "letrehozas" => "Létrehozás",
 ];

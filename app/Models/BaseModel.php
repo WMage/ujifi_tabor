@@ -13,7 +13,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
  * Class BaseModel
  * @package App\Models
  * *
- *
+ * @method static EloquentBuilder whereId(int $ID)
  * @method static Model|Collection|EloquentBuilder|static|null find(int | string | array $id, $columns = ['*'])
  * @method static Model|Collection|EloquentBuilder|static findOrFail(int | array $id, $columns = ['*'])
  * @method static Model|static create(array $array) fillable array

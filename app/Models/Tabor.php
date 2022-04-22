@@ -88,7 +88,6 @@ class Tabor extends BaseModel
         })
             ->select([
                 $tJ . ".*",
-                //DB::raw("IF(".$tS.".alias is null, )
                 $tS . ".alias"
             ])
             ->orderBy($tS . ".alias", "DESC")
@@ -96,8 +95,15 @@ class Tabor extends BaseModel
             ->groupBy([$tJ . ".ID"]);
     }
 
+    //akik csoportba se tartoznak és nem is csoportvezetők még
     public function csopNelkuliJelentkezok()
     {
-        return $this->jelentkezok()->whereNull("ID_csoport");
+        $vezetok = array_merge(
+            $this->csoportok->whereNotNull("ID_vezeto1")->pluck("ID_vezeto1")->toArray(),
+            $this->csoportok->whereNotNull("ID_vezeto2")->pluck("ID_vezeto2")->toArray()
+        );
+        //dd($vezetok);
+        return $this->jelentkezok()->whereNull("ID_csoport")
+            ->whereIntegerNotInRaw(Jelentkezo::getTableName() . ".ID", $vezetok);
     }
 }

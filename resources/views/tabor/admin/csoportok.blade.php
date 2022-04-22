@@ -56,6 +56,7 @@ use \App\Service\Template;
                     </tr>
                 </table>
             </form>
+            <hr>
         @endif
         <h3>@lang('csoport.letezo_csoportok')</h3>
         @if(empty($csoportok))

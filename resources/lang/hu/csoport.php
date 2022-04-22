@@ -13,4 +13,6 @@ return [
     "uj_csoport" => "Új csoport létrehozása",
     "letezo_csoportok" => "Eddigi csoportok",
     "nincsenek_csoportok" => "Nincsenek csoportok",
+    "tagok"=>"Tagok",
+    "tagok_hozzaadasa"=>"Tagok hozzáadása",
 ];
