@@ -8,6 +8,7 @@
 
 /** @var \Illuminate\Support\Collection|\App\Models\Csoport[] $csoportok */
 /** @var \Illuminate\Support\Collection|\App\Models\Jelentkezo[] $jelentkezok */
+/** @var \Illuminate\Support\Collection|\App\Models\Jelentkezo[] $csopvez */
 use \App\Service\Template;
 
 ?>
@@ -22,13 +23,13 @@ use \App\Service\Template;
                     <tr>
                         <td>@lang('altalanos.nev')</td>
                         <td>
-                            <input name="csoport_nev" title="csoport_nev" value="{{old('csoport_nev')}}"/>
+                            <input name="csoport_nev" title="csoport_nev" value="{{oldV('csoport_nev')}}"/>
                         </td>
                     </tr>
                     <tr>
                         <td>@lang('csoport.csoport_hely')</td>
                         <td>
-                            <input name="csoport_hely" title="csoport_hely" value="{{old('csoport_hely')}}"/>
+                            <input name="csoport_hely" title="csoport_hely" value="{{oldV('csoport_hely')}}"/>
                         </td>
                     </tr>
                     <tr>
@@ -37,7 +38,7 @@ use \App\Service\Template;
                             <?= Template::generateSelect(
                                 "csoport_vezeto1",
                                 $jelentkezok,
-                                old('csoport_vezeto1'),
+                                oldV('csoport_vezeto1'),
                                 ["ID", "getTeljesNev"]
                             )?>
                         </td>
@@ -47,8 +48,8 @@ use \App\Service\Template;
                         <td>
                             <?= Template::generateSelect(
                                 "csoport_vezeto2",
-                                $jelentkezok,
-                                old('csoport_vezeto2'),
+                                $csopvez,
+                                oldV('csoport_vezeto2'),
                                 ["ID", "getTeljesNev"]
                             )?>
                         </td>
@@ -67,7 +68,7 @@ use \App\Service\Template;
                     <td>@lang('csoport.vezeto') 1</td>
                     <td>@lang('csoport.vezeto') 2</td>
                     @if(userCan("groups.manage", true))
-                        <td>@lang('altalanos.muvelet')</td>
+                        <td>@lang('altalanos.szerkesztes')</td>
                     @endif
                 </tr>
                 @foreach($csoportok as $csoport)
@@ -78,8 +79,7 @@ use \App\Service\Template;
                         <td>{{$csoport->vezeto2  ? $csoport->vezeto2->getTeljesNev() : ""}}</td>
                         @if(userCan("groups.manage", true))
                             <td>
-                                szerkesztés
-                                törlés
+                                szerklink
                             </td>
                         @endif
                     </tr>

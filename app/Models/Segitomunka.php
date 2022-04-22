@@ -14,6 +14,6 @@ class Segitomunka extends BaseModel
     public function setMegnevezesAttribute($value)
     {
         $this->attributes["megnevezes"] = $value;
-        $this->alias = iconv("UTF-8", "ASCII//TRANSLIT", $value);
+        $this->alias = str_replace(" ", "_", iconv("UTF-8", "ASCII//TRANSLIT", $value));
     }
 }

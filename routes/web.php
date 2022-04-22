@@ -15,11 +15,18 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use \Illuminate\Routing\Router;
 
 //Route::get('/', function () { return view('welcome');});
 Route::get("/", [IndexController::class, 'index']);
-Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-Route::get('/admin/groups', [AdminController::class, 'groups'])->name('admin.groups');
+
+
+Route::controller(AdminController::class)->prefix("/admin")->group(function (Router $router) {
+    $router->get("/", "index");
+    $router->get("/csoportok", "csoportok");
+    $router->match(["get", "post"], "/csoport/szerkeszt/{id}", "csoportSzerkeszt")->where('id', '[0-9]*');
+}
+);
 
 Auth::routes(["register" => false, "reset" => false]);
 

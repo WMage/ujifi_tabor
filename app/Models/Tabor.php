@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $ID
@@ -23,7 +25,7 @@ use Illuminate\Support\Collection;
  * @property Collection|Napok[] $napok
  * @property Collection|Csoport[] $csoportok
  * @property Collection|Jelentkezo[] $jelentkezok
- * @property Collection|Jelentkezo[] $csopVezJelentkezok
+ * @property Collection|Jelentkezo[] $lehetsegesCsopVezJelentkezok
  * @property Collection|Jelentkezo[] $csopNelkuliJelentkezok
  */
 class Tabor extends BaseModel
@@ -63,16 +65,35 @@ class Tabor extends BaseModel
     {
         return $this->hasMany(
             Jelentkezo::class,
-            "ID_csoport",
+            "ID_tabor",
             "ID"
         );
     }
 
-    public function csopVezJelentkezok()
+    public function lehetsegesCsopVezJelentkezok()
     {
-        return $this->jelentkezok()->join(
-
-        );
+        suspend_sql_full_group_mode();
+        $tS = Segitomunka::getTableName();
+        $tJS = JelentkezoSegitomunka::getTableName();
+        $tJ = Jelentkezo::getTableName();
+        return $this->csopNelkuliJelentkezok()->leftJoin(
+            $tJS,
+            $tJS . ".ID_jelentkezo",
+            "=",
+            $tJ . ".ID"
+        )->leftJoin($tS, function (JoinClause $query) use ($tS, $tJS) {
+            return $query
+                ->on($tS . ".ID", "=", $tJS . ".ID_segito_munka")
+                ->where($tS . ".alias", "=", "csoport_vezeto");
+        })
+            ->select([
+                $tJ . ".*",
+                //DB::raw("IF(".$tS.".alias is null, )
+                $tS . ".alias"
+            ])
+            ->orderBy($tS . ".alias", "DESC")
+            ->orderBy($tJ . ".ID")
+            ->groupBy([$tJ . ".ID"]);
     }
 
     public function csopNelkuliJelentkezok()

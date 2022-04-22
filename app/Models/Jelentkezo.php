@@ -29,6 +29,7 @@ use Illuminate\Support\Collection;
  * --relations
  * @property Szerepkor szerepkor
  * @property Collection|Jog[] jogok
+ * @property Collection|Segitomunka[] munkak
  */
 class Jelentkezo extends BaseModel
 {
@@ -64,4 +65,24 @@ class Jelentkezo extends BaseModel
     {
         return implode(" ", [$this->nev_elotag, $this->nev_vezetek, $this->nev_kereszt]);
     }
+
+    public function getTeljesNevMunkakkal(): string
+    {
+        return $this->getTeljesNev() . "(" .
+            implode(", ", $this->munkak->pluck("megnevezes")->toArray())
+            . ")";
+    }
+
+    public function munkak()
+    {
+        return $this->hasManyThrough(
+            Segitomunka::class,
+            JelentkezoSegitomunka::class,
+            "ID_jelentkezo",
+            "ID",
+            "ID",
+            "ID_segito_munka"
+        );
+    }
+
 }

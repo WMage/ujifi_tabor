@@ -7,6 +7,7 @@
  */
 
 return [
+    "cim"=>"csoport",
     "vezeto" => "Vezető",
     "csoport_hely" => "Találkozási pont",
     "uj_csoport" => "Új csoport létrehozása",

@@ -22,6 +22,7 @@ class Template extends Singleton
     public static function generateSelect($name, $list, $selected = "", $match = array('value', 'text'))
     {
         $ret = "<select name='$name'>\n";
+        $ret.="<option value='null'> -- Válassz! -- </option>";
         foreach ($list as $option) {
             $value = self::fetchValue($option, $match[0]);
             $text = self::fetchValue($option, $match[1]);

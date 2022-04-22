@@ -9,4 +9,5 @@
 return [
     "nev" => "Név",
     "muvelet" => "Művelet",
+    "szerkesztes" => "szerkesztés",
 ];
