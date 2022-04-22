@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tabor;
 use App\Repositories\TaborRepository;
 use App\Service\Template;
 

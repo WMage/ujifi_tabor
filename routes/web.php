@@ -11,13 +11,15 @@
 |
 */
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('/', function () { return view('welcome');});
-Route::get("/", "IndexController@index");
-Route::get('/admin', 'AdminController@index')->name('admin');
-Route::get('/admin/groups', 'AdminController@groups')->name('admin');
+Route::get("/", [IndexController::class, 'index']);
+Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+Route::get('/admin/groups', [AdminController::class, 'groups'])->name('admin.groups');
 
 Auth::routes(["register" => false, "reset" => false]);
 
