@@ -23,6 +23,8 @@ use Illuminate\Support\Collection;
  * @property Collection|Napok[] $napok
  * @property Collection|Csoport[] $csoportok
  * @property Collection|Jelentkezo[] $jelentkezok
+ * @property Collection|Jelentkezo[] $csopVezJelentkezok
+ * @property Collection|Jelentkezo[] $csopNelkuliJelentkezok
  */
 class Tabor extends BaseModel
 {
@@ -64,5 +66,17 @@ class Tabor extends BaseModel
             "ID_csoport",
             "ID"
         );
+    }
+
+    public function csopVezJelentkezok()
+    {
+        return $this->jelentkezok()->join(
+
+        );
+    }
+
+    public function csopNelkuliJelentkezok()
+    {
+        return $this->jelentkezok()->whereNull("ID_csoport");
     }
 }

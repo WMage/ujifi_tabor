@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Csoport;
+use App\Models\Tabor;
 use App\Repositories\TaborRepository;
 use App\User;
 
@@ -27,12 +28,12 @@ class AdminController extends Controller
      */
     public function groups()
     {
-        //dd(Csoport::find(1)->tagok);
+        dd(Tabor::find(1)->csopVezJelentkezok);
         TaborRepository::getInstance()->setKijeloltTaborId(1);
         //dd(TaborRepository::getInstance()->getKijeloltTabor()->lezarult());
         $tabor = TaborRepository::getInstance()->getKijeloltTabor();
         $csoportok = $tabor->csoportok;
-        $jelentkezok = $tabor->jelentkezok;
+        $jelentkezok = $tabor->csopNelkuliJelentkezok;
        // dd(TaborRepository::getInstance()->getKijeloltTabor()->csoportok);
         return view("tabor/admin/groups")->with(compact("csoportok", "jelentkezok"));
     }
