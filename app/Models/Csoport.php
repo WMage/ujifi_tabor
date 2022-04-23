@@ -30,12 +30,14 @@ class Csoport extends BaseModel
         "hely",
         "ID_vezeto1",
         "ID_vezeto2",
+        "ID_tabor",
     ];
     protected $casts = [
         "nev" => "string",
         "hely" => "string",
-        "ID_vezeto1" => "string",
-        "ID_vezeto2" => "string",
+        "ID_vezeto1" => "int",
+        "ID_vezeto2" => "int",
+        "ID_tabor" => "int",
 
     ];
 

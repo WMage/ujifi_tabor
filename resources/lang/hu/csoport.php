@@ -7,12 +7,14 @@
  */
 
 return [
-    "cim"=>"csoport",
+    "cim" => "csoport",
     "vezeto" => "Vezető",
     "csoport_hely" => "Találkozási pont",
     "uj_csoport" => "Új csoport létrehozása",
     "letezo_csoportok" => "Eddigi csoportok",
     "nincsenek_csoportok" => "Nincsenek csoportok",
-    "tagok"=>"Tagok",
-    "tagok_hozzaadasa"=>"Tagok hozzáadása",
+    "tagok" => "Tagok",
+    "tagok_hozzaadasa" => "Tagok hozzáadása",
+    "tagok_szama" => "Tagok száma",
+    "csoport_kezeles" => "Csoportkezelés",
 ];

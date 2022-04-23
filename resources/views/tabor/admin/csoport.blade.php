@@ -15,7 +15,7 @@ use \App\Service\Template;
 @extends('layouts.app')
 
 @section('content')
-    @if(userCan("groups.view"))
+    @if(userCan("groups.manage"))
         @includeWhen(userCan("groups.manage", true), 'tabor.admin.szerkeszt', [
             "module"=>$module,
             "cim"=>$cim,

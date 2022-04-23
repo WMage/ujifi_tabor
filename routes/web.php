@@ -22,9 +22,9 @@ Route::get("/", [IndexController::class, 'index']);
 
 
 Route::controller(AdminController::class)->prefix("/admin")->group(function (Router $router) {
-    $router->get("/", "index");
-    $router->get("/csoportok", "csoportok");
-    $router->match(["get", "post"], "/csoport/szerkeszt/{id}", "csoportSzerkeszt")->where('id', '[0-9]*');
+    $router->get("/", "index")->name("admin.index");
+    $router->match(["get", "post"], "/csoportok", "csoportok")->name("admin.csoportok");
+    $router->match(["get", "post"], "/csoport/{id}", "csoport")->where('id', '[0-9]*')->name("admin.csoport");
 }
 );
 

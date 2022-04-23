@@ -7,6 +7,7 @@
       <w>azonosit</w>
       <w>csop</w>
       <w>csoportba</w>
+      <w>csoportkezelés</w>
       <w>csoportvezetők</w>
       <w>csopvez</w>
       <w>ebed</w>
@@ -29,6 +30,8 @@
       <w>jelszo</w>
       <w>jogok</w>
       <w>jogszint</w>
+      <w>kezeles</w>
+      <w>kezelo</w>
       <w>kijelolt</w>
       <w>kulcsok</w>
       <w>lastmod</w>
@@ -51,12 +54,14 @@
       <w>pont</w>
       <w>reggeli</w>
       <w>szallasszoba</w>
+      <w>szama</w>
       <w>szerepkor</w>
       <w>szerkeszt</w>
       <w>szerkesztes</w>
       <w>szerkesztheti</w>
       <w>szerkesztés</w>
       <w>szint</w>
+      <w>száma</w>
       <w>taborok</w>
       <w>tagok</w>
       <w>találkozási</w>

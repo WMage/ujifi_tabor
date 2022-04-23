@@ -2,20 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40157799-d7be-4396-8959-835797086ca1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/tabor/admin/csoport.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/tabor/admin/szerkeszt.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Repositories/CsoportRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/White_Mage.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/White_Mage.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ujifi.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ujifi.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/BaseModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/BaseModel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Csoport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Csoport.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Jelentkezo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Jelentkezo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Tabor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Tabor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/hu/altalanos.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/hu/altalanos.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/hu/csoport.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/hu/csoport.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/tabor/admin/edit.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/tabor/admin/groups.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tabor/admin/csoportok.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/tabor/admin/csoport.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tabor/admin/csoport.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/tabor/admin/csoportok.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tabor/admin/csoportok.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/tabor/admin/szerkeszt.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/tabor/admin/szerkeszt.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -81,25 +77,26 @@
     <session id="361530760">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="env" value="3" />
           <entry key="json" value="45" />
-          <entry key="php" value="5025" />
+          <entry key="php" value="5493" />
           <entry key="txt" value="33" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Blade" value="978" />
+          <entry key="Blade" value="1125" />
           <entry key="JSON" value="45" />
-          <entry key="PHP" value="4047" />
+          <entry key="PHP" value="4368" />
           <entry key="PLAIN_TEXT" value="36" />
         </counts>
       </usages-collector>
@@ -115,7 +112,7 @@
           <entry key="example" value="1" />
           <entry key="gitignore" value="1" />
           <entry key="lock" value="1" />
-          <entry key="php" value="49" />
+          <entry key="php" value="51" />
           <entry key="yml" value="1" />
         </counts>
       </usages-collector>
@@ -123,7 +120,7 @@
         <counts>
           <entry key="Blade" value="3" />
           <entry key="JSON" value="1" />
-          <entry key="PHP" value="46" />
+          <entry key="PHP" value="48" />
           <entry key="PLAIN_TEXT" value="4" />
           <entry key="YAML" value="1" />
         </counts>
@@ -135,8 +132,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="25" column="28" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
+            <state relative-caret-position="76">
+              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
               <folding>
                 <element signature="e#391#432#0#PHP" expanded="true" />
               </folding>
@@ -147,10 +144,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/tabor/admin/csoportok.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="56" column="24" selection-start-line="56" selection-start-column="24" selection-end-line="56" selection-end-column="24" />
+            <state relative-caret-position="-76">
+              <caret line="53" column="48" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
               <folding>
-                <element signature="e#0#5#0#PHP" expanded="true" />
+                <element signature="e#0#5#0" expanded="true" />
+                <element signature="e#0#5#0" expanded="true" />
+                <element signature="e#422#425#0#PHP" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
@@ -160,10 +159,10 @@
                 <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
+                <element signature="e#1307#1310#0#PHP" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
-                <element signature="e#1228#1231#0#PHP" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
-                <element signature="e#1695#1698#0#PHP" expanded="true" />
+                <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
@@ -184,17 +183,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/tabor/admin/szerkeszt.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="30" column="35" lean-forward="true" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
+            <state relative-caret-position="114">
+              <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
               <folding>
-                <element signature="e#0#5#0#PHP" expanded="true" />
-                <element signature="e#6#93#0#PHP" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
-                <element signature="e#337#340#0#PHP" expanded="true" />
+                <element signature="e#284#287#0#PHP" expanded="true" />
+                <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
@@ -221,12 +219,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/tabor/admin/csoport.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1752">
-              <caret line="58" column="25" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
+            <state relative-caret-position="342">
+              <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
               <folding>
-                <element signature="e#0#5#0#PHP" expanded="true" />
-                <element signature="e#0#5#0" expanded="true" />
-                <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
                 <element signature="e#0#5#0" expanded="true" />
@@ -248,19 +243,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/lang/hu/csoport.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+            <state relative-caret-position="422">
+              <caret line="18" column="20" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AdminController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="349">
+              <caret line="38" column="14" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
+              <folding>
+                <element signature="e#40#63#0#PHP" expanded="true" />
+                <element signature="e#1281#1463#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AdminController.php">
+        <entry file="file://$PROJECT_DIR$/app/Repositories/CsoportRepository.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="68" column="13" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
+            <state relative-caret-position="216">
+              <caret line="23" column="82" lean-forward="true" selection-start-line="23" selection-start-column="82" selection-end-line="23" selection-end-column="82" />
               <folding>
-                <element signature="e#40#63#0#PHP" expanded="true" />
+                <element signature="e#147#261#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -269,11 +277,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Models/Csoport.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="90" column="5" selection-start-line="90" selection-start-column="5" selection-end-line="90" selection-end-column="5" />
+            <state relative-caret-position="460">
+              <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
               <folding>
                 <element signature="e#30#71#0#PHP" expanded="true" />
-                <element signature="e#66#384#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -282,11 +289,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Models/Jelentkezo.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="105" column="31" lean-forward="true" selection-start-line="105" selection-start-column="31" selection-end-line="105" selection-end-column="31" />
+            <state relative-caret-position="2964">
+              <caret line="105" column="31" selection-start-line="105" selection-start-column="31" selection-end-line="105" selection-end-column="31" />
               <folding>
                 <element signature="e#30#48#0#PHP" expanded="true" />
-                <element signature="e#85#832#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -295,11 +301,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Models/Tabor.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
+            <state relative-caret-position="3154">
               <caret line="106" column="40" selection-start-line="106" selection-start-column="40" selection-end-line="106" selection-end-column="40" />
               <folding>
                 <element signature="e#30#48#0#PHP" expanded="true" />
-                <element signature="e#85#722#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -308,7 +313,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
+            <state relative-caret-position="25042">
               <caret line="1084" column="20" selection-start-line="1084" selection-start-column="20" selection-end-line="1084" selection-end-column="20" />
             </state>
           </provider>
@@ -327,9 +332,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fetch</find>
-      <find>_dat</find>
-      <find>providers</find>
       <find>method_exists</find>
       <find>app.php</find>
       <find>autoload</find>
@@ -357,6 +359,9 @@
       <find>includeIf</find>
       <find>csopNelkuliJelentkezok</find>
       <find>hasOne</find>
+      <find>groups.view</find>
+      <find>csoportSzerkeszt</find>
+      <find>href</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -370,7 +375,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Repository/MainRepository.php" />
         <option value="$PROJECT_DIR$/app/Repository/JelentkezoRepository.php" />
         <option value="$PROJECT_DIR$/app/Service/User.php" />
         <option value="$PROJECT_DIR$/app/Connection/WMMysqlConnection.php" />
@@ -387,7 +391,6 @@
         <option value="$PROJECT_DIR$/app/Models/Szerepkor.php" />
         <option value="$PROJECT_DIR$/app/Exception/PermissinMissingException.php" />
         <option value="$PROJECT_DIR$/app/Exception/PermissionMissingException.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/TaborRepository.php" />
         <option value="$PROJECT_DIR$/app/Models/Jog.php" />
         <option value="$PROJECT_DIR$/app/Models/Napok.php" />
         <option value="$PROJECT_DIR$/app/Models/TaborNapok.php" />
@@ -403,7 +406,6 @@
         <option value="$PROJECT_DIR$/app/Models/JelentkezoSegitomunka.php" />
         <option value="$PROJECT_DIR$/app/Models/Segitomunka.php" />
         <option value="$PROJECT_DIR$/resources/views/tabor/admin/groups.blade.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/helpers.php" />
         <option value="$PROJECT_DIR$/app/Service/Template.php" />
         <option value="$PROJECT_DIR$/app/Exceptions/Handler.php" />
@@ -411,16 +413,19 @@
         <option value="$PROJECT_DIR$/config/database.php" />
         <option value="$PROJECT_DIR$/resources/views/tabor/admin/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/tabor/admin/group.blade.php" />
-        <option value="$PROJECT_DIR$/resources/lang/hu/csoport.php" />
         <option value="$PROJECT_DIR$/resources/lang/hu/altalanos.php" />
-        <option value="$PROJECT_DIR$/resources/views/tabor/admin/csoport.blade.php" />
         <option value="$PROJECT_DIR$/app/Models/BaseModel.php" />
-        <option value="$PROJECT_DIR$/resources/views/tabor/admin/csoportok.blade.php" />
         <option value="$PROJECT_DIR$/app/Models/Tabor.php" />
         <option value="$PROJECT_DIR$/app/Models/Jelentkezo.php" />
-        <option value="$PROJECT_DIR$/app/Models/Csoport.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" />
         <option value="$PROJECT_DIR$/resources/views/tabor/admin/szerkeszt.blade.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/TaborRepository.php" />
+        <option value="$PROJECT_DIR$/resources/views/tabor/admin/csoport.blade.php" />
+        <option value="$PROJECT_DIR$/resources/lang/hu/csoport.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/CsoportRepository.php" />
+        <option value="$PROJECT_DIR$/app/Models/Csoport.php" />
+        <option value="$PROJECT_DIR$/resources/views/tabor/admin/csoportok.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" />
       </list>
     </option>
   </component>
@@ -906,11 +911,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\projects_7.4.16\ujifi\app\Repositories" />
       <recent name="C:\xampp\htdocs\projects_7.4.16\ujifi\resources\views\tabor\admin" />
       <recent name="C:\xampp\htdocs\projects_7.4.16\ujifi\app\Models" />
       <recent name="C:\xampp\htdocs\projects_7.1.33\ujifi\app\Models" />
       <recent name="C:\xampp\htdocs\projects_7.1.33\ujifi\resources\lang\hu" />
-      <recent name="C:\xampp\htdocs\projects_7.1.33\ujifi\resources\lang" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -946,7 +951,8 @@
       <workItem from="1650562750750" duration="15003000" />
       <workItem from="1650608122465" duration="598000" />
       <workItem from="1650610547759" duration="1523000" />
-      <workItem from="1650612282381" duration="28812000" />
+      <workItem from="1650612282381" duration="29479000" />
+      <workItem from="1650692079622" duration="2994000" />
     </task>
     <task id="LOCAL-00001" summary="add login, init jelentkezes">
       <created>1650406620875</created>
@@ -997,17 +1003,24 @@
       <option name="project" value="LOCAL" />
       <updated>1650648753617</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="group edit">
+      <created>1650660346361</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1650660346361</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81674000" />
+    <option name="totallyTimeSpent" value="85335000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22878624" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23200859" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1058,18 +1071,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/services.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-964" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/filesystems.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1077,9 +1078,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="19" column="50" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
-          <folding>
-            <element signature="e#328#501#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1090,16 +1088,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="83" column="64" selection-start-line="83" selection-start-column="61" selection-end-line="83" selection-end-column="64" />
-          <folding>
-            <element signature="e#23#49#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/User.php" />
     <entry file="file://$PROJECT_DIR$/.styleci.yml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1115,13 +1104,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/console.php">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/TaborRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="23" column="20" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/IndexController.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -1151,19 +1133,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/config/auth.php">
       <provider selected="true" editor-type-id="text-editor" />
@@ -1182,10 +1152,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="2" column="21" lean-forward="true" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-          <folding>
-            <element signature="e#30#84#0#PHP" expanded="true" />
-            <element signature="e#347#391#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1224,16 +1190,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
           <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="25" column="28" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
-          <folding>
-            <element signature="e#391#432#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1326,10 +1282,24 @@
     <entry file="file://$PROJECT_DIR$/.env.example">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/lang/hu/csoport.php">
+    <entry file="file://$PROJECT_DIR$/app/Models/BaseModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+        <state relative-caret-position="190">
+          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Collections/Collection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="1602" column="20" selection-start-line="1602" selection-start-column="20" selection-end-line="1602" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="308" column="20" selection-start-line="308" selection-start-column="20" selection-end-line="308" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -1340,37 +1310,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/BaseModel.php">
+    <entry file="file://$PROJECT_DIR$/app/Models/Jelentkezo.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
+        <state relative-caret-position="2964">
+          <caret line="105" column="31" selection-start-line="105" selection-start-column="31" selection-end-line="105" selection-end-column="31" />
+          <folding>
+            <element signature="e#30#48#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/tabor/admin/csoportok.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Models/Tabor.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="56" column="24" selection-start-line="56" selection-start-column="24" selection-end-line="56" selection-end-column="24" />
+        <state relative-caret-position="3154">
+          <caret line="106" column="40" selection-start-line="106" selection-start-column="40" selection-end-line="106" selection-end-column="40" />
           <folding>
-            <element signature="e#0#5#0#PHP" expanded="true" />
+            <element signature="e#30#48#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25042">
+          <caret line="1084" column="20" selection-start-line="1084" selection-start-column="20" selection-end-line="1084" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/TaborRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="18" column="21" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/tabor/admin/szerkeszt.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+          <folding>
             <element signature="e#0#5#0" expanded="true" />
             <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#1228#1231#0#PHP" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#1695#1698#0#PHP" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#284#287#0#PHP" expanded="true" />
             <element signature="e#0#5#0" expanded="true" />
             <element signature="e#0#5#0" expanded="true" />
             <element signature="e#0#5#0" expanded="true" />
@@ -1387,12 +1375,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/tabor/admin/csoport.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1752">
-          <caret line="58" column="25" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="25" />
+        <state relative-caret-position="342">
+          <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
           <folding>
-            <element signature="e#0#5#0#PHP" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
             <element signature="e#0#5#0" expanded="true" />
             <element signature="e#0#5#0" expanded="true" />
             <element signature="e#0#5#0" expanded="true" />
@@ -1410,89 +1395,90 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Collections/Collection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="1602" column="20" selection-start-line="1602" selection-start-column="20" selection-end-line="1602" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="1084" column="20" selection-start-line="1084" selection-start-column="20" selection-end-line="1084" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Tabor.php">
+    <entry file="file://$PROJECT_DIR$/resources/lang/hu/csoport.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="422">
-          <caret line="106" column="40" selection-start-line="106" selection-start-column="40" selection-end-line="106" selection-end-column="40" />
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
           <folding>
-            <element signature="e#30#48#0#PHP" expanded="true" />
-            <element signature="e#85#722#0#PHP" expanded="true" />
+            <element signature="e#391#432#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Jelentkezo.php">
+    <entry file="file://$PROJECT_DIR$/app/Repositories/CsoportRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="105" column="31" lean-forward="true" selection-start-line="105" selection-start-column="31" selection-end-line="105" selection-end-column="31" />
+        <state relative-caret-position="216">
+          <caret line="23" column="82" lean-forward="true" selection-start-line="23" selection-start-column="82" selection-end-line="23" selection-end-column="82" />
           <folding>
-            <element signature="e#30#48#0#PHP" expanded="true" />
-            <element signature="e#85#832#0#PHP" expanded="true" />
+            <element signature="e#147#261#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="308" column="20" selection-start-line="308" selection-start-column="20" selection-end-line="308" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/Csoport.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="90" column="5" selection-start-line="90" selection-start-column="5" selection-end-line="90" selection-end-column="5" />
+        <state relative-caret-position="460">
+          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
           <folding>
             <element signature="e#30#71#0#PHP" expanded="true" />
-            <element signature="e#66#384#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/tabor/admin/csoportok.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-76">
+          <caret line="53" column="48" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#422#425#0#PHP" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#1307#1310#0#PHP" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#0#5#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AdminController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="68" column="13" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
+        <state relative-caret-position="349">
+          <caret line="38" column="14" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
           <folding>
             <element signature="e#40#63#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/tabor/admin/szerkeszt.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="30" column="35" lean-forward="true" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#5#0#PHP" expanded="true" />
-            <element signature="e#6#93#0#PHP" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#337#340#0#PHP" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
-            <element signature="e#0#5#0" expanded="true" />
+            <element signature="e#1281#1463#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

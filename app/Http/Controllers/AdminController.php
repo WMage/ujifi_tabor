@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Csoport;
 use App\Models\Jelentkezo;
 use App\Models\Tabor;
+use App\Repositories\CsoportRepository;
 use App\Repositories\TaborRepository;
 use App\User;
 use Illuminate\Http\Request;
@@ -26,22 +27,32 @@ class AdminController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \ReflectionException
      */
-    public function csoportok()
+    public function csoportok(Request $request)
     {
         TaborRepository::getInstance()->setKijeloltTaborId(1);
-        //dd(TaborRepository::getInstance()->getKijeloltTabor()->lezarult());
         $tabor = TaborRepository::getInstance()->getKijeloltTabor();
+        if (!empty($data = $request->all())) {
+            //dd($data);
+            $data["ID_tabor"] = $tabor->ID;
+            CsoportRepository::getInstance()->insertUpdateCsoport($data);
+        }
         $csoportok = $tabor->csoportok;
         $jelentkezok = $tabor->csopNelkuliJelentkezok;
         $csopvez = $tabor->lehetsegesCsopVezJelentkezok;
-        // dd(TaborRepository::getInstance()->getKijeloltTabor()->csoportok);
         return view("tabor.admin.csoportok")->with(compact("csoportok", "jelentkezok", "csopvez"));
     }
 
-    public function csoportSzerkeszt(int $id, Request $request)
+    /**
+     * @param int $id
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \ReflectionException
+     */
+    public function csoport(int $id, Request $request)
     {
         $csoport = Csoport::findOrFail($id);
         if ($request->get("action") == "tag_hozzaad") {
@@ -57,17 +68,7 @@ class AdminController extends Controller
         } elseif ($request->get("action") == "tag_torol") {
             Jelentkezo::whereId($request->get("tag_ID"))->update(["ID_csoport" => null]);
         } elseif (!empty($data = $request->all())) {
-            if (array_key_exists("ID_vezeto1", $data) && !empty($data["ID_vezeto1"]) && $data["ID_vezeto1"] !== "null") {
-                if (Csoport::vezetiE($data["ID_vezeto1"])->exists()) {
-                    unset($data["ID_vezeto1"]);
-                }
-            }
-            if (array_key_exists("ID_vezeto2", $data) && !empty($data["ID_vezeto2"]) && $data["ID_vezeto2"] !== "null") {
-                if (Csoport::vezetiE($data["ID_vezeto2"])->exists()) {
-                    unset($data["ID_vezeto2"]);
-                }
-            }
-            $csoport->update($data);
+            $csoport = CsoportRepository::getInstance()->insertUpdateCsoport($data, $csoport);
         }
         $tagok = $csoport->tagok;
         $csopNelkuliJelentkezok = $csoport->tabor->csopNelkuliJelentkezok;

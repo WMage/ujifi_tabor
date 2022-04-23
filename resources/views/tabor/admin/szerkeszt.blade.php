@@ -33,7 +33,8 @@
                         )
                         @endphp
                     @else
-                        <input name="{{$nev}}" title="{{$nev}}" value="{{oldV($nev, $mezo["ertek"])}}"/>
+                        <input name="{{$nev}}" title="{{$nev}}"
+                               value="{{oldV($nev, $mezo["ertek"])}}"/>
                     @endif
                 </td>
             </tr>
