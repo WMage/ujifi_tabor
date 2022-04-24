@@ -1,3 +1,6 @@
+<?php
+use \App\Service\Template;
+?>
 @extends('layouts.app')
 
 @section('content')
@@ -5,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Kezelt tábor kiválasztása</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,8 +16,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    <form method="post">
+                        <?= Template::generateSelect('tabor_id', $tabor_list, $tabor_id, array('ID', 'nev')) ?>
+                        <input type="submit">
+                    </form>
                 </div>
             </div>
         </div>

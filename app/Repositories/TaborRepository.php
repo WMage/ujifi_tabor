@@ -9,6 +9,8 @@
 namespace App\Repositories;
 
 use App\Models\Tabor;
+use App\Models\User;
+use Illuminate\Support\Collection;
 
 /**
  * Class TaborRepository
@@ -21,23 +23,15 @@ class TaborRepository extends MainRepository
     /** @var string|Tabor */
     protected $model = Tabor::class;
 
-    public function getElerhetoTaborok(): array
+    public function getOsszesTaborok(): Collection
     {
-        return
-            $this->model::select(["ID", "nev"])
-                ->whereRaw("REG_start < NOW()")
-                ->whereRaw("REG_end > NOW()")
-                ->get()->toArray();
+        return $this->model::get();
     }
 
-    public function getOsszesTaborok(): array
-    {
-        return $this->model::select(["ID", "nev"])->get()->toArray();
-    }
-
-    public function setKijeloltTaborId(int $taborId)
+    public function setKijeloltTaborId(?int $taborId): self
     {
         $this->setClassSessionData("tabor_id", $taborId);
+        return $this;
     }
 
     public function getKijeloltTaborId(): ?int
@@ -45,11 +39,23 @@ class TaborRepository extends MainRepository
         return $this->getClassSessionData("tabor_id");
     }
 
+    public function clearKijeloltTaborId(): self
+    {
+        $this->removeClassSessionData("tabor_id");
+        return $this;
+    }
+
     public function getKijeloltTabor(): ?Tabor
     {
-        if(empty($taborId = $this->getKijeloltTaborId())){
+        if (empty($taborId = $this->getKijeloltTaborId())) {
             return null;
         }
         return $this->model->find($taborId);
+    }
+
+    public function getElerhetoTaborok(): Collection
+    {
+        /** @var User $user */
+        return $this->model::regisztracioAktiv()->get();
     }
 }

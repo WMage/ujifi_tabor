@@ -22,8 +22,8 @@ Route::get("/", [IndexController::class, 'index']);
 
 Route::controller(AdminController::class)->middleware('auth')->prefix("/admin")->group(function () {
     include "groupRoutes/admin.php";
+
 }
 );
-
 Auth::routes(["register" => false, "reset" => false]);
 

@@ -20,7 +20,7 @@ class ControllerResponse
      * @param $responsePath
      * @param $responseParams
      */
-    public function __construct($responsePath, $responseParams)
+    public function __construct($responsePath, $responseParams = [])
     {
         $this->responsePath = $responsePath;
         $this->responseParams = $responseParams;

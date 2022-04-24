@@ -2,6 +2,7 @@
   <dictionary name="White Mage">
     <words>
       <w>akik</w>
+      <w>aktiv</w>
       <w>altalanos</w>
       <w>authenticatable</w>
       <w>azonosit</w>
@@ -19,6 +20,7 @@
       <w>fejlec</w>
       <w>fejlecek</w>
       <w>felhasznalo</w>
+      <w>felhasznalok</w>
       <w>felhasznalonev</w>
       <w>ferohely</w>
       <w>fillable</w>
@@ -27,11 +29,13 @@
       <w>hozzáadása</w>
       <w>jelenlet</w>
       <w>jelentkezok</w>
+      <w>jelentkezők</w>
       <w>jelszo</w>
       <w>jogok</w>
       <w>jogszint</w>
       <w>kezeles</w>
       <w>kezelo</w>
+      <w>kijeloles</w>
       <w>kijelolt</w>
       <w>kulcsok</w>
       <w>lastmod</w>
@@ -53,6 +57,7 @@
       <w>osszes</w>
       <w>pont</w>
       <w>reggeli</w>
+      <w>regisztracio</w>
       <w>szallasszoba</w>
       <w>szama</w>
       <w>szerepkor</w>
@@ -69,6 +74,8 @@
       <w>tizorai</w>
       <w>torles</w>
       <w>torol</w>
+      <w>táborok</w>
+      <w>táborválasztó</w>
       <w>törlés</w>
       <w>uzsonna</w>
       <w>vacsora</w>
@@ -76,6 +83,7 @@
       <w>vezetett</w>
       <w>vezeti</w>
       <w>vezetok</w>
+      <w>válassz</w>
     </words>
   </dictionary>
 </component>

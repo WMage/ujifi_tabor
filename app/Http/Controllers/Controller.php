@@ -36,7 +36,10 @@ class Controller extends BaseController
     {
         /** @var ControllerResponse $cr */
         $cr = $this->{$method}(...array_values($parameters));
-        return ($cr->getResponse());
+        if($cr instanceof ControllerResponse) {
+            return ($cr->getResponse());
+        }
+        return $cr;
         dd($this->request->wantsJson());
         dd(app('request')->wantsJson());
         dd($this->request->wantsJson(), $cr);

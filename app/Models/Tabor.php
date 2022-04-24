@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,9 @@ use Illuminate\Support\Facades\DB;
  * @property Collection|Jelentkezo[] $jelentkezok
  * @property Collection|Jelentkezo[] $lehetsegesCsopVezJelentkezok
  * @property Collection|Jelentkezo[] $csopNelkuliJelentkezok
+ *
+ * -scopes
+ * @method static Builder regisztracioAktiv()
  */
 class Tabor extends BaseModel
 {
@@ -105,5 +109,11 @@ class Tabor extends BaseModel
         //dd($vezetok);
         return $this->jelentkezok()->whereNull("ID_csoport")
             ->whereIntegerNotInRaw(Jelentkezo::getTableName() . ".ID", $vezetok);
+    }
+
+    public function scopeRegisztracioAktiv(Builder $builder){
+        return $builder
+            ->where("REG_start", "<=", DB::raw("now()"))
+            ->where("REG_end", ">=", DB::raw("now()"));
     }
 }

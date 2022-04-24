@@ -17,12 +17,14 @@ class Template extends Singleton
      * @param array $list
      * @param string $selected id of default selected value
      * @param array $match field matching
+     * @param bool $autoSubmit
      * @return string
      */
-    public static function generateSelect($name, $list, $selected = "", $match = array('value', 'text'))
+    public static function generateSelect($name, $list, $selected = "", $match = array('value', 'text'), bool $autoSubmit = false)
     {
-        $ret = "<select name='$name'>\n";
-        $ret.="<option value='null'> -- Válassz! -- </option>";
+        $s = $autoSubmit ? 'onchange="this.form.submit()"' : "";
+        $ret = "<select name='$name' " . $s . ">\n";
+        $ret .= "<option value='null'> -- Válassz! -- </option>";
         foreach ($list as $option) {
             $value = self::fetchValue($option, $match[0]);
             $text = self::fetchValue($option, $match[1]);

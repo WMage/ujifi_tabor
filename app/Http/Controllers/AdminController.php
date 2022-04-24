@@ -12,27 +12,39 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this;
-//    }
+    protected $user;
 
+    protected function getUser(): User
+    {
+        if (empty($this->user)) {
+            $this->user = auth()->user();
+        }
+        return $this->user;
+    }
+
+    /**
+     * @return ControllerResponse
+     * @throws \ReflectionException
+     */
     public function index()
     {
-        /** @var User $user */
-        $user = auth()->user();
-        //return $user->getOsszesJog();
-        return view('home');
+        $taborRepo = TaborRepository::getInstance();
+        $user = $this->getUser();
+        $tabor_list = $user->taborok;
+        if($id = (int)$this->request->get('tabor_id')) {
+            $taborRepo->setKijeloltTaborId($id);
+        }
+        $tabor_id = $taborRepo->getKijeloltTaborId();
+        return new ControllerResponse('home', compact('tabor_list', 'tabor_id'));
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return ControllerResponse
      * @throws \ReflectionException
      */
     public function csoportok(Request $request)
     {
-        TaborRepository::getInstance()->setKijeloltTaborId(1);
         $tabor = TaborRepository::getInstance()->getKijeloltTabor();
         if (!empty($data = $request->all())) {
             $data["ID_tabor"] = $tabor->ID;
@@ -41,7 +53,7 @@ class AdminController extends Controller
         $csoportok = $tabor->csoportok;
         $jelentkezok = $tabor->csopNelkuliJelentkezok;
         $csopvez = $tabor->lehetsegesCsopVezJelentkezok;
-        return view("tabor.admin.csoportok")->with(compact("csoportok", "jelentkezok", "csopvez"));
+        return new ControllerResponse("tabor.admin.csoportok", compact("csoportok", "jelentkezok", "csopvez"));
     }
 
     /**
@@ -50,7 +62,7 @@ class AdminController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      * @throws \ReflectionException
      */
-    public function csoport(int $id, Request $request):ControllerResponse
+    public function csoport(int $id, Request $request): ControllerResponse
     {
         $csoport = Csoport::findOrFail($id);
         if ($request->get("action") == "tag_hozzaad") {

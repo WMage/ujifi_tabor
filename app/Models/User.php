@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Repositories\TaborRepository;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 /**
  * Class User
@@ -24,6 +25,9 @@ use Illuminate\Support\Carbon;
  *
  * --relations
  * @property Jelentkezo jelentkezo
+ * @property Collection|Tabor[] taborok
+ *
+ * @mixin BaseModel
  */
 class User extends Authenticatable
 {
@@ -121,5 +125,17 @@ class User extends Authenticatable
             "ID_user"
         )
             ->where(Jelentkezo::getTableName() . ".ID_tabor", "=", $taborId);
+    }
+
+    public function taborok()
+    {
+        return $this->hasManyThrough(
+            Tabor::class,
+            Jelentkezo::class,
+            "ID_user",
+            "ID",
+            "id",
+            "ID_tabor"
+        );
     }
 }
