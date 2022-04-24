@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Response\ControllerResponse;
 use App\Models\Csoport;
 use App\Models\Jelentkezo;
-use App\Models\Tabor;
 use App\Repositories\CsoportRepository;
 use App\Repositories\TaborRepository;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+//    public function __construct()
+//    {
+//        $this;
+//    }
 
     public function index()
     {
@@ -36,7 +35,6 @@ class AdminController extends Controller
         TaborRepository::getInstance()->setKijeloltTaborId(1);
         $tabor = TaborRepository::getInstance()->getKijeloltTabor();
         if (!empty($data = $request->all())) {
-            //dd($data);
             $data["ID_tabor"] = $tabor->ID;
             CsoportRepository::getInstance()->insertUpdateCsoport($data);
         }
@@ -52,7 +50,7 @@ class AdminController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      * @throws \ReflectionException
      */
-    public function csoport(int $id, Request $request)
+    public function csoport(int $id, Request $request):ControllerResponse
     {
         $csoport = Csoport::findOrFail($id);
         if ($request->get("action") == "tag_hozzaad") {
@@ -98,6 +96,7 @@ class AdminController extends Controller
                 "kulcsok" => ["ID", "getTeljesNevMunkakkal"]
             ],
         ];
-        return view("tabor.admin.csoport")->with(compact("module", "cim", "action", "mezok", "tagok", "csopNelkuliJelentkezok"));
+        return new ControllerResponse("tabor.admin.csoport", compact("module", "cim", "action", "mezok", "tagok", "csopNelkuliJelentkezok"));
+        //return view("tabor.admin.csoport")->with(compact("module", "cim", "action", "mezok", "tagok", "csopNelkuliJelentkezok"));
     }
 }
