@@ -10,6 +10,9 @@ namespace App\Repositories;
 
 use App\Models\Tabor;
 use App\Models\User;
+use Facade\FlareClient\Http\Exceptions\NotFound;
+use http\Exception\InvalidArgumentException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
 /**
@@ -30,6 +33,10 @@ class TaborRepository extends MainRepository
 
     public function setKijeloltTaborId(?int $taborId): self
     {
+        if (is_null($this->model::find($taborId))) {
+            throw new \InvalidArgumentException("Tábor (ID: $taborId) nem létezik", 412);
+        }
+
         $this->setClassSessionData("tabor_id", $taborId);
         return $this;
     }

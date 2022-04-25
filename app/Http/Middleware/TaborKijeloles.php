@@ -21,11 +21,11 @@ class TaborKijeloles
     public function handle(Request $request, Closure $next)
     {
         $taborRepo = TaborRepository::getInstance();
-        if($id = (int)$request->get('tabor_id')) {
+        if ($id = (int)$request->get('tabor_id')) {
             $taborRepo->setKijeloltTaborId($id);
         }
-        if (Auth::check() && empty($taborRepo->getKijeloltTaborId()) && ($request->route()->getName()!=='admin.index')) {
-            if($request->wantsJson()){
+        if (Auth::check() && empty($taborRepo->getKijeloltTaborId()) && ($request->route()->getName() !== 'admin.index')) {
+            if ($request->wantsJson()) {
                 throw new NincsTaborMeghatarozvaException();
             }
             return redirect(route('admin.index'));

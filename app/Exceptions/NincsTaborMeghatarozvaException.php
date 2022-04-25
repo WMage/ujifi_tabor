@@ -14,6 +14,6 @@ class NincsTaborMeghatarozvaException extends \Exception
 {
     public function __construct(Throwable $previous = null)
     {
-        parent::__construct("", 204, $previous);
+        parent::__construct("", 412, $previous);
     }
 }

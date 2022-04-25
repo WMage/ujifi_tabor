@@ -39,8 +39,20 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         report($e);
-        //$debugMode = config('app.debug');
         //if(in_array($e->getCode(), [404,500]))
+
+        if ($request->wantsJson()) {
+            $status = $e->getCode();
+            if (in_array($status, [204, 404])) {
+                return response()->noContent($status);
+            } else {
+                return response()->json([
+                    "message" => $e->getMessage(),
+                    "code" => $e->getCode(),
+                    "trace" => config('app.debug') ? $e->getTrace() : [],
+                ], $status);
+            }
+        }
         return parent::render($request, $e);
     }
 }
