@@ -4,8 +4,10 @@ use \App\Service\Template;
 @extends('layouts.app')
 
 @section('content')
-    @if(empty($tabor_list))
-        <h1>Sajnáljuk, jelenleg 1 táborra sincs lehetőség regisztrálni</h1>
+    @if($tabor_list->isEmpty())
+        <h3>
+            Sajnáljuk, jelenleg 1 táborra sincs lehetőség regisztrálni
+        </h3>
     @else
         <form method="post">
             <table border="1">
