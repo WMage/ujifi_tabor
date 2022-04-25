@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 
+use App\Exception\NincsTaborMeghatarozvaException;
 use App\Repositories\TaborRepository;
 use Closure;
 use Illuminate\Http\Request;
@@ -15,13 +16,20 @@ class TaborKijeloles
      * @param Closure $next
      * @return mixed
      * @throws \ReflectionException
+     * @throws NincsTaborMeghatarozvaException
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && empty(TaborRepository::getInstance()->getKijeloltTaborId()) && ($request->route()->getName()!=='admin.index')) {
+        $taborRepo = TaborRepository::getInstance();
+        if($id = (int)$request->get('tabor_id')) {
+            $taborRepo->setKijeloltTaborId($id);
+        }
+        if (Auth::check() && empty($taborRepo->getKijeloltTaborId()) && ($request->route()->getName()!=='admin.index')) {
+            if($request->wantsJson()){
+                throw new NincsTaborMeghatarozvaException();
+            }
             return redirect(route('admin.index'));
         }
-
         return $next($request);
     }
 }

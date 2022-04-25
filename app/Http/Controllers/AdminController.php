@@ -28,13 +28,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $taborRepo = TaborRepository::getInstance();
         $user = $this->getUser();
         $tabor_list = $user->taborok;
-        if($id = (int)$this->request->get('tabor_id')) {
-            $taborRepo->setKijeloltTaborId($id);
-        }
-        $tabor_id = $taborRepo->getKijeloltTaborId();
+        $tabor_id = TaborRepository::getInstance()->getKijeloltTaborId();
         return new ControllerResponse('home', compact('tabor_list', 'tabor_id'));
     }
 

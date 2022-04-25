@@ -9,6 +9,7 @@
 namespace App\Http\Response;
 
 use App\Http\Resources\Json\Tabor\Admin\CsoportResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class ControllerResponse
 {
@@ -40,6 +41,9 @@ class ControllerResponse
                 $class .= ucfirst($parts[$i]) . "\\";
             }
             $class .= ucfirst($parts[$c]) . "Resource";
+            if (!class_exists($class)) {
+                $class = JsonResource::class;
+            }
             return new $class($this->responseParams);
         }
         return view($this->responsePath, $this->responseParams);

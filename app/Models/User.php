@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Repositories\TaborRepository;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * Class User
@@ -18,6 +19,7 @@ use Illuminate\Support\Collection;
  * @property string $email
  * @property Carbon|string $email_verified_at
  * @property string $password
+ * @property string $api_token
  * @property string $remember_token
  * @property int $access_level
  * @property Carbon|string $created_at
@@ -31,7 +33,14 @@ use Illuminate\Support\Collection;
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    /**
+     * Client ID: 1
+    Client secret: 8IDl23czllNkv4ASqHOqTwreIp55IoDhLEfOInD8
+    Password grant client created successfully.
+    Client ID: 2
+    Client secret: qI57fOWK9inv6HXauu4Lu7P7Depi5nAXVk47j5yz
+     */
+    use HasFactory, Notifiable, HasApiTokens;
     private $jogok = [];
 
     /**

@@ -34,14 +34,10 @@ class Controller extends BaseController
      */
     public function callAction($method, $parameters)
     {
-        /** @var ControllerResponse $cr */
         $cr = $this->{$method}(...array_values($parameters));
         if($cr instanceof ControllerResponse) {
-            return ($cr->getResponse());
+            return ($cr->getResponse(app('request')->wantsJson()));
         }
         return $cr;
-        dd($this->request->wantsJson());
-        dd(app('request')->wantsJson());
-        dd($this->request->wantsJson(), $cr);
     }
 }
