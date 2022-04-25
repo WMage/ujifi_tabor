@@ -1,5 +1,7 @@
 <?php
 use \App\Service\Template;
+/** @var \Illuminate\Support\Collection|\App\Models\Tabor[] $tabor_list  */
+/** @var int $tabor_id  */
 ?>
 @extends('layouts.app')
 
@@ -13,49 +15,45 @@ use \App\Service\Template;
             <table border="1">
                 <tr>
                     <td>Tábor kiválasztása:</td>
-                    <td><?= Template::generateSelect('tabor_id', $tabor_list, $tabor_id, array('ID', 'nev')) ?></td>
+                    <td><?= Template::generateSelect('tabor_id', $tabor_list, oldV('tabor_id', $tabor_id), array('ID', 'nev')) ?></td>
                 </tr>
                 <tr>
                     <td>E-mail</td>
-                    <td><input required name="email" type="text" value="{{ old('email') }}" title=""></td>
+                    <td><input required name="email" type="text" value="{{ oldV('email') }}" title=""></td>
                 </tr>
                 <tr>
                     <td>Név előtag (pl.: Dr, ifj, mr, ...)</td>
-                    <td><input name="nev_elotag" type="text" value="{{ old('nev_elotag') }}" title=""></td>
+                    <td><input name="nev_elotag" type="text" value="{{ oldV('nev_elotag') }}" title=""></td>
                 </tr>
                 <tr>
                     <td>Vezetéknév</td>
-                    <td><input required name="nev_vezetek" type="text" value="{{ old('nev_vezetek') }}" title=""></td>
+                    <td><input required name="nev_vezetek" type="text" value="{{ oldV('nev_vezetek') }}" title=""></td>
                 </tr>
                 <tr>
                     <td>Keresztnév (összes :D)</td>
-                    <td><input required name="nev_kereszt" type="text" value="{{ old('nev_kereszt') }}" title=""></td>
+                    <td><input required name="nev_kereszt" type="text" value="{{ oldV('nev_kereszt') }}" title=""></td>
                 </tr>
                 <tr>
                     <td>Város</td>
-                    <td><input required name="varos" type="text" value="{{ old('nev_kereszt') }}" title=""></td>
+                    <td><input required name="varos" type="text" value="{{ oldV('varos') }}" title=""></td>
                 </tr>
                 <tr>
                     <td>Születésnap</td>
-                    <td><input name="szuletesnap" type="date" value="{{ old('szuletesnap') }}" title=""
+                    <td><input name="szuletesnap" type="date" value="{{ oldV('szuletesnap') }}" title=""
                                min="1900.01.01" max="<?= Template::getNOWStr() ?>"></td>
                 </tr>
                 <tr>
                     <td>Közös szállás kulcsszó</td>
-                    <td><input name="szallas_kulcsszo" type="text" value="{{ old('szallas_kulcsszo') }}" title="">
+                    <td><input name="szallas_kulcsszo" type="text" value="{{ oldV('szallas_kulcsszo') }}" title="">
                     </td>
                 </tr>
 
-                <?php
-                if (!empty($tabor_napok_list)):
-                ?>
+                @if (!empty($tabor_napok_list)):
                 <tr>
                     <td>Szállás</td>
                     <td><?= Template::generateChecbox('tabor_napok_lista', $tabor_napok_list, $selected_tabor_napok_list, array('ID', 'datum')) ?></td>
                 </tr>
-                <?php
-                endif;
-                ?>
+                @endif;
                 <tr>
                     <td>Étkezés</td>
                     <td><input name="asd" type="text" title=""></td>

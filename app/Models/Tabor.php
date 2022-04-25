@@ -46,13 +46,10 @@ class Tabor extends BaseModel
 
     public function napok()
     {
-        return $this->hasManyThrough(
+        return $this->hasMany(
             Napok::class,
-            TaborNapok::class,
             "ID_tabor",
-            "ID",
-            "ID",
-            "ID_napok"
+            "ID"
         );
     }
 

@@ -25,7 +25,7 @@ use \App\Service\Template;
                     <tr>
                         <td>@lang('altalanos.nev')</td>
                         <td>
-                            <input name="nev" title="csoport_nev" value="{{oldV('nev')}}"/>
+                            <input required name="nev" title="csoport_nev" value="{{oldV('nev')}}"/>
                         </td>
                     </tr>
                     <tr>
@@ -57,7 +57,7 @@ use \App\Service\Template;
                         </td>
                     </tr>
                 </table>
-                <input type="submit">
+                <input type="submit" name="uj_csoport">
             </form>
             <hr>
         @endif

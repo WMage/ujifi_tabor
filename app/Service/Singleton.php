@@ -15,6 +15,7 @@ class Singleton
     protected static $sessionData;
     private static $instances = array();
     protected $className;
+    protected $initMethod = "Load";
 
     protected function __construct()
     {
@@ -32,6 +33,7 @@ class Singleton
      */
     public static function getInstance($name = '', $params = array())
     {
+
         if (($callerName = get_called_class()) != get_class()) {
             $params = $name;
             $name = $callerName;
@@ -41,17 +43,19 @@ class Singleton
             if (empty($params)) {
                 self::$instances[$name] = new $name();
             } else {
-                //call_user_func_array( array( $name, 'lists' ), $params);
                 self::$instances[$name] = new $name(...$params);
             }
+
+            $initMethod = "Load";
             if (self::$instances[$name] instanceof self) {
+                $initMethod = $class->initMethod;
                 $class->className = $name;
                 if (!isset(self::$sessionData[$name])) {
                     self::$sessionData[$name] = array();
                 }
             }
-            $initMethod = "Load";
-            if (method_exists($class, $initMethod)) {
+
+            if (method_exists($class, $class->initMethod)) {
                 $methodData = new ReflectionMethod($class, $initMethod);
                 if ($methodData->isStatic()) {
                     $class::$initMethod();

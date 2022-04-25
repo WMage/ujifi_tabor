@@ -10,9 +10,6 @@ namespace App\Repositories;
 
 use App\Models\Tabor;
 use App\Models\User;
-use Facade\FlareClient\Http\Exceptions\NotFound;
-use http\Exception\InvalidArgumentException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
 /**

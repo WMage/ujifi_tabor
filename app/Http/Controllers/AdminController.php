@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Response\ControllerResponse;
 use App\Models\Csoport;
 use App\Models\Jelentkezo;
+use App\Models\Tabor;
 use App\Repositories\CsoportRepository;
 use App\Repositories\TaborRepository;
 use App\Models\User;
+use App\Repositories\UserRepository;
+use App\Service\Singleton;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -39,17 +42,38 @@ class AdminController extends Controller
      * @return ControllerResponse
      * @throws \ReflectionException
      */
-    public function csoportok(Request $request)
+    public function taborok(Request $request):ControllerResponse{
+        $taborok = UserRepository::getInstance()->getHozzaferhetoTaborok();
+        return new ControllerResponse("tabor.admin.taborok", compact("taborok"));
+    }
+
+    //<editor-fold desc="CSOPORT">
+    /**
+     * @param Request $request
+     * @return ControllerResponse
+     * @throws \ReflectionException
+     */
+    public function csoportok(Request $request):ControllerResponse
     {
         $tabor = TaborRepository::getInstance()->getKijeloltTabor();
-        if (!empty($data = $request->all())) {
-            $data["ID_tabor"] = $tabor->ID;
-            CsoportRepository::getInstance()->insertUpdateCsoport($data);
+        if (!is_null($request->get("uj_csoport"))) {
+            $this->ujCsoport($tabor->ID, $request->all());
         }
         $csoportok = $tabor->csoportok;
         $jelentkezok = $tabor->csopNelkuliJelentkezok;
         $csopvez = $tabor->lehetsegesCsopVezJelentkezok;
         return new ControllerResponse("tabor.admin.csoportok", compact("csoportok", "jelentkezok", "csopvez"));
+    }
+
+    /**
+     * @param int $tabor_id
+     * @param array $data
+     * @return Csoport
+     * @throws \ReflectionException
+     */
+    public function ujCsoport(int $tabor_id, array $data):Csoport{
+        $data["ID_tabor"] = $tabor_id;
+        return CsoportRepository::getInstance()->insertUpdateCsoport($data);
     }
 
     /**
@@ -105,6 +129,6 @@ class AdminController extends Controller
             ],
         ];
         return new ControllerResponse("tabor.admin.csoport", compact("module", "cim", "action", "mezok", "tagok", "csopNelkuliJelentkezok"));
-        //return view("tabor.admin.csoport")->with(compact("module", "cim", "action", "mezok", "tagok", "csopNelkuliJelentkezok"));
     }
+    //</editor-fold>
 }
