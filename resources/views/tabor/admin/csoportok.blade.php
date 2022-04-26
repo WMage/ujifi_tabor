@@ -17,7 +17,7 @@ use \App\Service\Template;
 @section('content')
     <h2><a href="<?=app('request')->url()?>">@lang('csoport.csoport_kezeles')</a></h2>
     @if(userCan("megtekint.csoportok", false))
-        @if(userCan("szerkeszt.csoportok", false))
+        {{--@if(userCan("szerkeszt.csoportok", false))--}}
             <h3>@lang('csoport.uj_csoport')</h3>
             <form method="post" action="">
                 @csrf
@@ -60,7 +60,7 @@ use \App\Service\Template;
                 <input type="submit" name="uj_csoport">
             </form>
             <hr>
-        @endif
+        {{--@endif--}}
         <h3>@lang('csoport.letezo_csoportok')</h3>
         @if(empty($csoportok))
             @lang('csoport.nincsenek_csoportok')
@@ -76,13 +76,13 @@ use \App\Service\Template;
                 @foreach($csoportok as $csoport)
                     <tr>
                         <td>
-                            @if(userCan("szerkeszt.csoportok", false))
+                            {{--@if(userCan("szerkeszt.csoportok", false))--}}
                                 <a target="_blank" href="{{route("admin.csoport", ["id"=>$csoport->ID])}}">
-                                    @endif
+                                    {{--@endif--}}
                                     {{$csoport->nev}}
-                                    @if(userCan("szerkeszt.csoportok", false))
+                                    {{--@if(userCan("szerkeszt.csoportok", false))--}}
                                 </a>
-                            @endif
+                            {{--@endif--}}
                         </td>
                         <td>{{$csoport->hely}}</td>
                         <td>

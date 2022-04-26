@@ -60,9 +60,11 @@ class Handler extends ExceptionHandler
             }
         }
         if ($e instanceof OlvasasiJogHianyzikException || $e instanceof SzerkesztesiJogHianyzikException) {
-            $route = $request->getMethod() === "POST" ? $request->route()->getName() : "index";
             \Session::flash('error', $e->getMessage());
-            return redirect()->route($route);
+            if($request->getMethod() === "POST"){
+                return redirect($request->getRequestUri());
+            }
+            return redirect()->route("index");
         }
 
         return parent::render($request, $e);

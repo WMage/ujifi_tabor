@@ -40,7 +40,8 @@ class AdminController extends Controller
      * @return ControllerResponse
      * @throws \ReflectionException
      */
-    public function taborok(Request $request):ControllerResponse{
+    public function taborok(Request $request): ControllerResponse
+    {
         $taborok = UserRepository::getInstance()->getHozzaferhetoTaborok();
         return new ControllerResponse("tabor.admin.taborok", compact("taborok"));
     }
@@ -55,11 +56,10 @@ class AdminController extends Controller
      * @throws \App\Exceptions\SzerkesztesiJogHianyzikException
      * @throws \ReflectionException
      */
-    public function csoportok(Request $request):ControllerResponse
+    public function csoportok(Request $request): ControllerResponse
     {
         $tabor = TaborRepository::getInstance()->getKijeloltTabor();
         if (!is_null($request->get("uj_csoport"))) {
-            userCan("szerkeszt.csoport.letrehoz");
             $this->ujCsoport($tabor->ID, $request->all());
         }
         $csoportok = $tabor->csoportok;
@@ -72,9 +72,14 @@ class AdminController extends Controller
      * @param int $tabor_id
      * @param array $data
      * @return Csoport
+     * @throws \App\Exceptions\ErvenytelenJogException
+     * @throws \App\Exceptions\OlvasasiJogHianyzikException
+     * @throws \App\Exceptions\SzerkesztesiJogHianyzikException
      * @throws \ReflectionException
      */
-    public function ujCsoport(int $tabor_id, array $data):Csoport{
+    public function ujCsoport(int $tabor_id, array $data): Csoport
+    {
+        userCan("szerkeszt.csoportok");
         $data["ID_tabor"] = $tabor_id;
         return CsoportRepository::getInstance()->insertUpdateCsoport($data);
     }
@@ -82,13 +87,17 @@ class AdminController extends Controller
     /**
      * @param int $id
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return ControllerResponse
+     * @throws \App\Exceptions\ErvenytelenJogException
+     * @throws \App\Exceptions\OlvasasiJogHianyzikException
+     * @throws \App\Exceptions\SzerkesztesiJogHianyzikException
      * @throws \ReflectionException
      */
     public function csoport(int $id, Request $request): ControllerResponse
     {
         $csoport = Csoport::findOrFail($id);
         if ($request->get("action") == "tag_hozzaad") {
+            userCan("szerkeszt.csoportok");
             foreach (array_filter($request->get("uj_tag"), function ($value) {
                 return !empty($value) && $value !== "null";
             }) as $tag_ID) {
@@ -99,8 +108,10 @@ class AdminController extends Controller
                 }
             }
         } elseif ($request->get("action") == "tag_torol") {
+            userCan("szerkeszt.csoportok");
             Jelentkezo::whereId($request->get("tag_ID"))->update(["ID_csoport" => null]);
         } elseif (!empty($data = $request->all())) {
+            userCan("szerkeszt.csoportok");
             $csoport = CsoportRepository::getInstance()->insertUpdateCsoport($data, $csoport);
         }
         $tagok = $csoport->tagok;

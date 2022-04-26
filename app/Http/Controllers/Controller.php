@@ -43,6 +43,6 @@ class Controller extends BaseController
         }
         //\Session::flash('error','error');
         /** @var View|Redirect|Response|mixed $cr */
-        return $cr->with('error', 'You have no permission for this page!');
+        return $cr;
     }
 }
