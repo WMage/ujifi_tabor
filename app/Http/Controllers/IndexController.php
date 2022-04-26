@@ -5,20 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Tabor;
 use App\Repositories\TaborRepository;
 use App\Service\Template;
+use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
     /** @var TaborRepository */
     protected $taborRepository;
 
+
     /**
      * IndexController constructor.
+     * @param Request $request
      * @throws \ReflectionException
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->taborRepository = TaborRepository::getInstance();
+        parent::__construct($request);
     }
+
 
     public function index()
     {

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Exceptions\ErvenytelenJogException;
+use App\Exceptions\OlvasasiJogHianyzikException;
+use App\Exceptions\SzerkesztesiJogHianyzikException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -35,10 +38,10 @@ class User extends Authenticatable
 {
     /**
      * Client ID: 1
-    Client secret: 8IDl23czllNkv4ASqHOqTwreIp55IoDhLEfOInD8
-    Password grant client created successfully.
-    Client ID: 2
-    Client secret: qI57fOWK9inv6HXauu4Lu7P7Depi5nAXVk47j5yz
+     * Client secret: 8IDl23czllNkv4ASqHOqTwreIp55IoDhLEfOInD8
+     * Password grant client created successfully.
+     * Client ID: 2
+     * Client secret: qI57fOWK9inv6HXauu4Lu7P7Depi5nAXVk47j5yz
      */
     use HasFactory, Notifiable, HasApiTokens;
     private $jogok = [];
@@ -83,20 +86,39 @@ class User extends Authenticatable
 
     /**
      * @param string $jog
-     * @param bool $szerkesztheti
+     * @param bool $throwsException
      * @return bool
+     * @throws ErvenytelenJogException
+     * @throws OlvasasiJogHianyzikException
+     * @throws SzerkesztesiJogHianyzikException
      * @throws \ReflectionException
      */
-    public function hasPerm(string $jog, bool $szerkesztheti): bool
+    public function hasPerm(string $jog, bool $throwsException = true): bool
     {
-        $vanJog = false;
-        $vanJog =
-            $this->isAdmin() ||
-            (!$szerkesztheti && $this->isReader())
-            (($vanJog = ($this->getOsszesJog()[$jog] ?? (new Jog()))->szerkesztheti) === $szerkesztheti) ||
-            $vanJog;
-        if ($vanJog && $szerkesztheti && (TaborRepository::getInstance()->getKijeloltTabor()->lezarult())) {
-            return $this->isAdmin();
+        $permParts = explode('.', $jog);
+        if ($permParts[0] === "szerkeszt") {
+            $userCan = $this->isAdmin();
+            $exception = new SzerkesztesiJogHianyzikException($jog);
+        } elseif ($permParts[0] === "megtekint") {
+            $userCan = $this->isReader();
+            $exception = new OlvasasiJogHianyzikException($jog);
+        } else {
+            //érvénytelen jog
+            if ($throwsException) {
+                throw new ErvenytelenJogException($jog);
+            }
+            return false;
+        }
+        $vanJog = $userCan || ($vanJog = (array_key_exists($jog, $this->getOsszesJog())));
+        if ($vanJog && (TaborRepository::getInstance()->getKijeloltTabor()->lezarult())) {
+            if ($throwsException && !$userCan) {
+                throw $exception;
+            }
+            return $userCan;
+        }
+
+        if ($throwsException && !$vanJog) {
+            throw $exception;
         }
         return $vanJog;
     }
@@ -107,7 +129,8 @@ class User extends Authenticatable
     public function getOsszesJog(): array
     {
         if (empty($this->jogok)) {
-            $szerepkorJogok = $this->jelentkezo->szerepkor->jogok;
+            $szerepkor = $this->jelentkezo->szerepkor;
+            $szerepkorJogok = $szerepkor ? $szerepkor->jogok : [];
             $jelentkezoJogok = $this->jelentkezo->jogok;
             foreach ($szerepkorJogok as $k => $jog) {
                 $this->jogok[$jog->alias] = $jog;

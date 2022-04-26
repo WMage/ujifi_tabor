@@ -28,9 +28,9 @@ class Szerepkor extends BaseModel
                 "ID",
                 "ID_jog"
             )
-            ->select([
+            /*->select([
                 Jog::getTableName() . ".*",
                 SzerepkorJog::getTableName() . ".szerkesztheti"
-            ]);
+            ])*/;
     }
 }

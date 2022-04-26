@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Response\ControllerResponse;
 use App\Models\Csoport;
 use App\Models\Jelentkezo;
-use App\Models\Tabor;
 use App\Repositories\CsoportRepository;
 use App\Repositories\TaborRepository;
 use App\Models\User;
 use App\Repositories\UserRepository;
-use App\Service\Singleton;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -48,15 +46,20 @@ class AdminController extends Controller
     }
 
     //<editor-fold desc="CSOPORT">
+
     /**
      * @param Request $request
      * @return ControllerResponse
+     * @throws \App\Exceptions\ErvenytelenJogException
+     * @throws \App\Exceptions\OlvasasiJogHianyzikException
+     * @throws \App\Exceptions\SzerkesztesiJogHianyzikException
      * @throws \ReflectionException
      */
     public function csoportok(Request $request):ControllerResponse
     {
         $tabor = TaborRepository::getInstance()->getKijeloltTabor();
         if (!is_null($request->get("uj_csoport"))) {
+            userCan("szerkeszt.csoport.letrehoz");
             $this->ujCsoport($tabor->ID, $request->all());
         }
         $csoportok = $tabor->csoportok;

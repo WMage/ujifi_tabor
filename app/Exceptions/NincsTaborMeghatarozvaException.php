@@ -6,7 +6,7 @@
  * Time: 21:21
  */
 
-namespace App\Exception;
+namespace App\Exceptions;
 
 use Throwable;
 

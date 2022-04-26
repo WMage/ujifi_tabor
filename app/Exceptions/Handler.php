@@ -36,6 +36,12 @@ class Handler extends ExceptionHandler
         //
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param Throwable $e
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\Response
+     * @throws Throwable
+     */
     public function render($request, Throwable $e)
     {
         report($e);
@@ -53,6 +59,12 @@ class Handler extends ExceptionHandler
                 ], $status);
             }
         }
+        if ($e instanceof OlvasasiJogHianyzikException || $e instanceof SzerkesztesiJogHianyzikException) {
+            $route = $request->getMethod() === "POST" ? $request->route()->getName() : "index";
+            \Session::flash('error', $e->getMessage());
+            return redirect()->route($route);
+        }
+
         return parent::render($request, $e);
     }
 }

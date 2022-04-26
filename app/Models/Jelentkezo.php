@@ -56,10 +56,10 @@ class Jelentkezo extends BaseModel
                 "ID",
                 "ID_jog"
             )
-            ->select([
+            /*->select([
                 Jog::getTableName() . ".*",
                 JelentkezoJog::getTableName() . ".szerkesztheti"
-            ]);
+            ])*/;
     }
 
     public function getTeljesNev(): string

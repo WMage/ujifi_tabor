@@ -15,15 +15,15 @@ use \App\Service\Template;
 @extends('layouts.app')
 
 @section('content')
-    @if(userCan("groups.manage"))
-        @includeWhen(userCan("groups.manage", true), 'tabor.admin.szerkeszt', [
+    @if(userCan("megtekint.csoportok", false))
+        @includeWhen(userCan("szerkeszt.csoportok", false), 'tabor.admin.szerkeszt', [
             "module"=>$module,
             "cim"=>$cim,
             "action"=>$action,
             "mezok"=>$mezok,
         ])
         <hr>
-        @if(userCan("groups.manage", true))
+        @if(userCan("megtekint.csoportok", false))
             <h3>@lang('csoport.tagok_hozzaadasa')</h3>
             <form method="post" action="">
                 @csrf

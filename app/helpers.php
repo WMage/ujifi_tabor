@@ -12,31 +12,18 @@ use Illuminate\Support\Facades\DB;
 if (!function_exists("userCan")) {
     /**
      * @param string $jog
-     * @param bool $szerkesztheti (true->igen, false->csak megtekintés)
+     * @param bool $exception
      * @return bool
      * @throws ReflectionException
+     * @throws \App\Exceptions\OlvasasiJogHianyzikException
+     * @throws \App\Exceptions\SzerkesztesiJogHianyzikException
+     * @throws \App\Exceptions\ErvenytelenJogException
      */
-    function userCan(string $jog, bool $szerkesztheti = false): bool
+    function userCan(string $jog, bool $exception = true): bool
     {
         /** @var \App\Models\User $user */
         $user = auth()->user();
-        return $user->hasPerm($jog, $szerkesztheti);
-    }
-}
-if (!function_exists("userCanException")) {
-    /**
-     * @param string $jog
-     * @param bool $szerkesztheti (true->igen, false->csak megtekintés)
-     * @return bool
-     * @throws ReflectionException
-     * @throws \App\Exception\PermissionMissingException
-     */
-    function userCanException(string $jog, bool $szerkesztheti = false): bool
-    {
-        if (!userCan($jog, $szerkesztheti)) {
-            throw new \App\Exception\PermissionMissingException($jog, $szerkesztheti);
-        }
-        return true;
+        return $user->hasPerm($jog, $exception);
     }
 }
 if (!function_exists("oldV")) {
