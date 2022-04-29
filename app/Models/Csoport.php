@@ -19,8 +19,11 @@ use Illuminate\Support\Collection;
  * @property Tabor $tabor
  * @property Collection|Jelentkezo[] $tagok
  *
+ * --virtual attributes
+ * @property string nevID
+ *
  * -scopes
- * @method static Builder VezetiE(int $jelentkezoId)
+ * @method static Builder VezetE(int $jelentkezoId)
  */
 class Csoport extends BaseModel
 {
@@ -89,9 +92,18 @@ class Csoport extends BaseModel
         );
     }
 
-    public function scopeVezetiE(Builder $builder, int $jelentkezoID)
+    public function scopeVezetE(Builder $builder, int $jelentkezoID)
     {
         return $builder->where("ID_vezeto1", "=", $jelentkezoID)->orWhere("ID_vezeto2", "=", $jelentkezoID);
     }
 
+    public function getNevAttribute(): string
+    {
+        return $this->attributes["nev"] ?: "-Név nélküli-";
+    }
+
+    public function getNevIDAttribute(): string
+    {
+        return $this->getNevAttribute() . "( ID: " . $this->ID . " )";
+    }
 }

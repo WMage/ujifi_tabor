@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Exceptions\ErvenytelenJogException;
-use App\Exceptions\OlvasasiJogHianyzikException;
-use App\Exceptions\SzerkesztesiJogHianyzikException;
+use App\Exceptions\Kiirathato\ErvenytelenJogException;
+use App\Exceptions\Kiirathato\OlvasasiJogHianyzikException;
+use App\Exceptions\Kiirathato\SzerkesztesiJogHianyzikException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

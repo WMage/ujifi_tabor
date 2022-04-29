@@ -6,11 +6,11 @@
  * Time: 21:21
  */
 
-namespace App\Exceptions;
+namespace App\Exceptions\Kiirathato;
 
 use Throwable;
 
-class SzerkesztesiJogHianyzikException extends \Exception
+class ErvenytelenJogException extends KiirathatoException
 {
     protected $user, $permissionName;
 
@@ -18,6 +18,6 @@ class SzerkesztesiJogHianyzikException extends \Exception
     {
         $this->user = auth()->user();
         $this->permissionName = $permissionName;
-        parent::__construct("Nincs jogod szerkeszteni a kért tartalmat", 401, $previous);
+        parent::__construct("A keresett jogosultság formátuma érvénytelen, értesítettük az üzemeltetést a hibáról.", 500, $previous);
     }
 }

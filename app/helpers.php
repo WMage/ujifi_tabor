@@ -15,9 +15,9 @@ if (!function_exists("userCan")) {
      * @param bool $exception
      * @return bool
      * @throws ReflectionException
-     * @throws \App\Exceptions\OlvasasiJogHianyzikException
-     * @throws \App\Exceptions\SzerkesztesiJogHianyzikException
-     * @throws \App\Exceptions\ErvenytelenJogException
+     * @throws \App\Exceptions\Kiirathato\OlvasasiJogHianyzikException
+     * @throws \App\Exceptions\Kiirathato\SzerkesztesiJogHianyzikException
+     * @throws \App\Exceptions\Kiirathato\ErvenytelenJogException
      */
     function userCan(string $jog, bool $exception = true): bool
     {
@@ -59,5 +59,12 @@ if (!function_exists('taborList')) {
         return \App\Repositories\TaborRepository::getInstance()->getElerhetoTaborok()->merge(
             $user ? $user->taborok : collect([])
         );
+    }
+}
+
+if (!function_exists('errorMsg')) {
+    function errorMsg(string $msg = "", ?Throwable $e = null): void
+    {
+        \Session::flash('error', is_null($e) ? $msg : $e->getMessage());
     }
 }

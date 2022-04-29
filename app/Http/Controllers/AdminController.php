@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\Kiirathato\ControllerException;
 use App\Http\Response\ControllerResponse;
 use App\Models\Csoport;
 use App\Models\Jelentkezo;
@@ -51,13 +52,14 @@ class AdminController extends Controller
     /**
      * @param Request $request
      * @return ControllerResponse
-     * @throws \App\Exceptions\ErvenytelenJogException
-     * @throws \App\Exceptions\OlvasasiJogHianyzikException
-     * @throws \App\Exceptions\SzerkesztesiJogHianyzikException
+     * @throws \App\Exceptions\Kiirathato\ErvenytelenJogException
+     * @throws \App\Exceptions\Kiirathato\OlvasasiJogHianyzikException
+     * @throws \App\Exceptions\Kiirathato\SzerkesztesiJogHianyzikException
      * @throws \ReflectionException
      */
     public function csoportok(Request $request): ControllerResponse
     {
+        //dd($request->all());
         $tabor = TaborRepository::getInstance()->getKijeloltTabor();
         if (!is_null($request->get("uj_csoport"))) {
             $this->ujCsoport($tabor->ID, $request->all());
@@ -72,9 +74,9 @@ class AdminController extends Controller
      * @param int $tabor_id
      * @param array $data
      * @return Csoport
-     * @throws \App\Exceptions\ErvenytelenJogException
-     * @throws \App\Exceptions\OlvasasiJogHianyzikException
-     * @throws \App\Exceptions\SzerkesztesiJogHianyzikException
+     * @throws \App\Exceptions\Kiirathato\ErvenytelenJogException
+     * @throws \App\Exceptions\Kiirathato\OlvasasiJogHianyzikException
+     * @throws \App\Exceptions\Kiirathato\SzerkesztesiJogHianyzikException
      * @throws \ReflectionException
      */
     public function ujCsoport(int $tabor_id, array $data): Csoport
@@ -85,29 +87,48 @@ class AdminController extends Controller
     }
 
     /**
+     * @param Csoport $csoport
+     * @param array $tagIDs
+     * @throws \App\Exceptions\Kiirathato\ErvenytelenJogException
+     * @throws \App\Exceptions\Kiirathato\OlvasasiJogHianyzikException
+     * @throws \App\Exceptions\Kiirathato\SzerkesztesiJogHianyzikException
+     * @throws \ReflectionException
+     * @throws ControllerException
+     */
+    public function csoporthozUjTagok(Csoport $csoport, array $tagIDs)
+    {
+        userCan("szerkeszt.csoportok");
+        foreach (array_filter($tagIDs) as $tag_ID) {
+            $jelentkezo = Jelentkezo::find($tag_ID);
+            if (!is_null($jelentkezo->ID_csoport)) {
+                throw new ControllerException($jelentkezo->getTeljesNev() . "Már tagja a " . $jelentkezo->csoport->nevID . " csoportnak, így nem adható hozzá a kijelölt csoporthoz [" . $csoport->nevID . "]");
+            } elseif (!($csoportok = $jelentkezo->getVezetettCsoport())->isEmpty()) {
+                $csoportok = $csoportok->pluck("nevID")->toArray();
+                array_unique($csoportok);
+                throw new ControllerException($jelentkezo->getTeljesNev() . " már vezetője a " . implode(",", $csoportok) . " csoportnak, így nem adható hozzá tagként a kijelölt csoporthoz [" . $csoport->nevID . "]");
+            } else {
+                $jelentkezo->ID_csoport = $csoport->ID;
+                $jelentkezo->save();
+            }
+        }
+    }
+
+    /**
      * @param int $id
      * @param Request $request
      * @return ControllerResponse
-     * @throws \App\Exceptions\ErvenytelenJogException
-     * @throws \App\Exceptions\OlvasasiJogHianyzikException
-     * @throws \App\Exceptions\SzerkesztesiJogHianyzikException
+     * @throws \App\Exceptions\Kiirathato\ErvenytelenJogException
+     * @throws \App\Exceptions\Kiirathato\OlvasasiJogHianyzikException
+     * @throws \App\Exceptions\Kiirathato\SzerkesztesiJogHianyzikException
      * @throws \ReflectionException
+     * @throws ControllerException
      */
     public function csoport(int $id, Request $request): ControllerResponse
     {
         $csoport = Csoport::findOrFail($id);
-        if ($request->get("action") == "tag_hozzaad") {
-            userCan("szerkeszt.csoportok");
-            foreach (array_filter($request->get("uj_tag"), function ($value) {
-                return !empty($value) && $value !== "null";
-            }) as $tag_ID) {
-                $jelentkezo = Jelentkezo::find($tag_ID);
-                if (is_null($jelentkezo->ID_csoport) && $jelentkezo->getVezetettCsoport()->isEmpty()) {
-                    $jelentkezo->ID_csoport = $id;
-                    $jelentkezo->save();
-                }
-            }
-        } elseif ($request->get("action") == "tag_torol") {
+        if ($request->get("action") === "tag_hozzaad") {
+            $this->csoporthozUjTagok($csoport, $request->get("uj_tag"));
+        } elseif ($request->get("action") === "tag_torol") {
             userCan("szerkeszt.csoportok");
             Jelentkezo::whereId($request->get("tag_ID"))->update(["ID_csoport" => null]);
         } elseif (!empty($data = $request->all())) {

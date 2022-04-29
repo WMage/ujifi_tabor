@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Kiirathato\KiirathatoException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -59,9 +60,12 @@ class Handler extends ExceptionHandler
                 ], $status);
             }
         }
-        if ($e instanceof OlvasasiJogHianyzikException || $e instanceof SzerkesztesiJogHianyzikException) {
-            \Session::flash('error', $e->getMessage());
-            if($request->getMethod() === "POST"){
+        if (
+            (($i = $e) instanceof KiirathatoException)
+            || (($i = $e->getPrevious()) instanceof KiirathatoException)
+        ) {
+            errorMsg($i->getMessage());
+            if ($request->getMethod() === "POST") {
                 return redirect($request->getRequestUri());
             }
             return redirect()->route("index");

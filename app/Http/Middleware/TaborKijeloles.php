@@ -2,8 +2,7 @@
 
 namespace App\Http\Middleware;
 
-
-use App\Exception\NincsTaborMeghatarozvaException;
+use App\Exceptions\Kiirathato\NincsTaborMeghatarozvaException;
 use App\Repositories\TaborRepository;
 use Closure;
 use Illuminate\Http\Request;

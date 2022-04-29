@@ -17,7 +17,8 @@ use \App\Service\Template;
 @section('content')
     <h2><a href="<?=app('request')->url()?>">@lang('csoport.csoport_kezeles')</a></h2>
     @if(userCan("megtekint.csoportok", false))
-        @if(userCan("groups.manage", true))
+        @if(userCan("groups.manage"))
+        {{--@if(userCan("szerkeszt.csoportok"))--}}
             <h3>@lang('csoport.uj_csoport')</h3>
             <form method="post" action="">
                 @csrf

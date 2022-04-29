@@ -6,11 +6,11 @@
  * Time: 21:21
  */
 
-namespace App\Exceptions;
+namespace App\Exceptions\Kiirathato;
 
 use Throwable;
 
-class OlvasasiJogHianyzikException extends \Exception
+class OlvasasiJogHianyzikException extends KiirathatoException
 {
     protected $user, $permissionName;
 
