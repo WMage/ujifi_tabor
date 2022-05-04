@@ -62,4 +62,7 @@ class TaborRepository extends MainRepository
         /** @var User $user */
         return $this->model::regisztracioAktiv()->get();
     }
+    public function taborLetrehozasa(array $data){
+
+    }
 }

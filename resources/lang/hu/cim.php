@@ -7,7 +7,6 @@
  */
 
 return [
-    "cim" => "tabor",
-    "csoport_kezeles" => "Táborkezelő",
-    "motto" => "Mottó",
+    "cim" => "Cím",
+    "varos" => "Város",
 ];

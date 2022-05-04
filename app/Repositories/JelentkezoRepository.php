@@ -10,6 +10,12 @@ namespace App\Repositories;
 
 use App\Models\Jelentkezo;
 
+/**
+ * Class JelentkezoRepository
+ * @package App\Repositories
+ *
+ * @method static self getInstance($name = '', $params = array())
+ */
 class JelentkezoRepository extends MainRepository
 {
     /** @var string|Jelentkezo */
@@ -26,5 +32,18 @@ class JelentkezoRepository extends MainRepository
                 ->where("szuletesnap", "=", $szuletesnap)
                 ->get()
         );
+    }
+
+    /**
+     * @param int $jelentkezoId
+     * @throws \App\Exceptions\Kiirathato\ErvenytelenJogException
+     * @throws \App\Exceptions\Kiirathato\OlvasasiJogHianyzikException
+     * @throws \App\Exceptions\Kiirathato\SzerkesztesiJogHianyzikException
+     * @throws \ReflectionException
+     */
+    public function csoportbolTorles(int $jelentkezoId)
+    {
+        userCan("szerkeszt.csoportok");
+        $this->model::whereId($jelentkezoId)->update(["ID_csoport" => null]);
     }
 }

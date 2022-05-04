@@ -28,9 +28,14 @@ class CsoportRepository extends MainRepository
      * @param Csoport|null $model
      * @return Csoport
      * @throws ControllerException
+     * @throws \App\Exceptions\Kiirathato\ErvenytelenJogException
+     * @throws \App\Exceptions\Kiirathato\OlvasasiJogHianyzikException
+     * @throws \App\Exceptions\Kiirathato\SzerkesztesiJogHianyzikException
+     * @throws \ReflectionException
      */
     public function insertUpdateCsoport(array $data, ?Csoport $model = null): Csoport
     {
+        userCan("szerkeszt.csoportok");
         if (!empty($model) && $model->exists()) {
             $data = $model->fill($data)->getDirty();
             if (!$model->isDirty()) {

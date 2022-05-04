@@ -6,99 +6,82 @@
  * Time: 19:59
  */
 
-/** @var \Illuminate\Support\Collection|\App\Models\Csoport[] $csoportok */
-/** @var \Illuminate\Support\Collection|\App\Models\Jelentkezo[] $jelentkezok */
-/** @var \Illuminate\Support\Collection|\App\Models\Jelentkezo[] $csopvez */
-use \App\Service\Template;
+/** @var \Illuminate\Support\Collection|\App\Models\Tabor[] $taborok */
+
 
 ?>
 @extends('layouts.app')
 
 @section('content')
-    <h2><a href="<?=app('request')->url()?>">@lang('csoport.csoport_kezeles')</a></h2>
-    @if(userCan("megtekint.csoportok", false))
-        @if(userCan("groups.manage"))
+    <h2><a href="<?=app('request')->url()?>">@lang('tabor.taborok_kezeles')</a></h2>
+    @if(userCan("megtekint.taborok", false))
         {{--@if(userCan("szerkeszt.csoportok"))--}}
-            <h3>@lang('csoport.uj_csoport')</h3>
+            <h3>@lang('taborok.uj_tabor')</h3>
             <form method="post" action="">
                 @csrf
                 <table border="1">
                     <tr>
-                        <td>@lang('altalanos.nev')</td>
+                        <td>@lang('cim.varos')</td>
                         <td>
-                            <input required name="nev" title="csoport_nev" value="{{oldV('nev')}}"/>
+                            <input required name="varos" title="tabor_varos" value="{{oldV('varos')}}"/>
                         </td>
                     </tr>
                     <tr>
-                        <td>@lang('csoport.csoport_hely')</td>
+                        <td>@lang('tabor.motto')</td>
                         <td>
-                            <input name="hely" title="csoport_hely" value="{{oldV('hely')}}"/>
+                            <input name="motto" title="tabor_motto" value="{{oldV('motto')}}"/>
                         </td>
                     </tr>
                     <tr>
-                        <td>@lang('csoport.vezeto') 1</td>
+                        <td>@lang('tabor.kezdete')</td>
                         <td>
-                            <?= Template::generateSelect(
-                                "ID_vezeto1",
-                                $csopvez,
-                                oldV('ID_vezeto1'),
-                                ["ID", "getTeljesNev"]
-                            )?>
+                            <input required name="kezdete" type="date" title="tabor_kezdet" value="{{oldV('kezdete')}}"/>
                         </td>
                     </tr>
                     <tr>
-                        <td>@lang('csoport.vezeto') 2</td>
+                        <td>@lang('tabor.vege')</td>
                         <td>
-                            <?= Template::generateSelect(
-                                "ID_vezeto2",
-                                $csopvez,
-                                oldV('ID_vezeto2'),
-                                ["ID", "getTeljesNev"]
-                            )?>
+                            <input required name="vege" type="date" title="tabor_vege" value="{{oldV('vege')}}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@lang('tabor.aszf')</td>
+                        <td>
+                            <textarea required name="aszf" cols="60" rows="6" title="tabor_aszf" >{{oldV('aszf')}}</textarea>
                         </td>
                     </tr>
                 </table>
-                <input type="submit" name="uj_csoport">
+                <input type="submit" name="uj_tabor">
             </form>
             <hr>
-        @endif
-        <h3>@lang('csoport.letezo_csoportok')</h3>
-        @if(empty($csoportok))
-            @lang('csoport.nincsenek_csoportok')
-        @else
+        <h3>@lang('tabor.letezo_taborok')</h3>
             <table border="1">
                 <tr>
-                    <td>@lang('altalanos.nev')</td>
-                    <td>@lang('csoport.csoport_hely')</td>
-                    <td>@lang('csoport.vezeto') 1</td>
-                    <td>@lang('csoport.vezeto') 2</td>
-                    <td>@lang('csoport.tagok_szama')</td>
+                    <td>@lang('cim.varos')</td>
+                    <td>@lang('tabor.motto')</td>
+                    <td>@lang('tabor.kezdete')</td>
+                    <td>@lang('tabor.vege')</td>
+                    <td>@lang('tabor.regisztracio_aktiv')</td>
                 </tr>
-                @foreach($csoportok as $csoport)
+                @foreach($taborok as $tabor)
                     <tr>
-                        <td>
-                            @if(userCan("groups.manage"))
-                                <a target="_blank" href="{{route("admin.csoport", ["id"=>$csoport->ID])}}">
-                                    @endif
-                                    {{$csoport->nev}}
-                                    @if(userCan("groups.manage"))
-                                </a>
-                            @endif
-                        </td>
-                        <td>{{$csoport->hely}}</td>
-                        <td>
-                            {{$csoport->vezeto1  ? $csoport->vezeto1->getTeljesNev() : ""}}
-                        </td>
-                        <td>
-                            {{$csoport->vezeto2  ? $csoport->vezeto2->getTeljesNev() : ""}}
-                        </td>
-                        <td>
-                            {{$csoport->tagok->count()}}
-                        </td>
+                        {{--<td>--}}
+                            {{--@if(userCan("szerkeszt.taborok"))--}}
+                                {{--<a target="_blank" href="{{route("admin.csoport", ["id"=>1])}}">--}}
+                                    {{--@endif--}}
+                                    {{--{{$csoport->nev}}--}}
+                                    {{--@if(userCan("groups.manage"))--}}
+                                {{--</a>--}}
+                            {{--@endif--}}
+                        {{--</td>--}}
+                        <td>{{$tabor->varos}}</td>
+                        <td>{{$tabor->motto}}</td>
+                        <td>{{$tabor->kezdete}}</td>
+                        <td>{{$tabor->vege}}</td>
+                        <td>{{$tabor->regisztracioAktivE()}}</td>
                     </tr>
                 @endforeach
             </table>
-        @endif
     @endif
 
 @endsection

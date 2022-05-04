@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $ID
- * @property string $nev
+ * @property string $motto
  * @property int $ID_aszf
  * @property string $varos
  * @property string $cim
@@ -108,9 +108,16 @@ class Tabor extends BaseModel
             ->whereIntegerNotInRaw(Jelentkezo::getTableName() . ".ID", $vezetok);
     }
 
-    public function scopeRegisztracioAktiv(Builder $builder){
+    public function scopeRegisztracioAktiv(Builder $builder)
+    {
         return $builder
             ->where("REG_start", "<=", DB::raw("now()"))
             ->where("REG_end", ">=", DB::raw("now()"));
+    }
+
+    public function regisztracioAktivE()
+    {
+        $now = new Carbon();
+        return $this->REG_start <= $now && $this->REG_end >= $now;
     }
 }
