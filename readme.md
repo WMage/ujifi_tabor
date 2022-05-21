@@ -7,6 +7,21 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## Docker (Sail)
+
+Dokumentáció - https://laravel.com/docs/8.x/sail
+Docker image buildelés és container futtatás
+```
+bash ./vendor/laravel/sail/bin/sail build --no-cache
+bash ./vendor/laravel/sail/bin/sail up
+```
+7.4-es PHP-t használ
+
+Megjegyzés:  
+Windowson PowerShellben futtatva kell a bash,
+más operációs rendszeren el lehet hagyni, 
+ha bashben futtatjuk a parancsot.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
