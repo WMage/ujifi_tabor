@@ -10,10 +10,12 @@
 ## Docker (Sail)
 
 Dokumentáció - https://laravel.com/docs/8.x/sail
-Docker image buildelés és container futtatás
+composer install után
+Docker image buildelés és container futtatás:
 ```
 bash ./vendor/laravel/sail/bin/sail build --no-cache
 bash ./vendor/laravel/sail/bin/sail up
+bash ./vendor/laravel/sail/bin/sail artisan migrate
 ```
 7.4-es PHP-t használ
 
