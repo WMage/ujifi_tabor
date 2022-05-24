@@ -9,8 +9,9 @@
 
 ## Docker (Sail)
 
-Dokumentáció - https://laravel.com/docs/8.x/sail
-composer install után
+Dokumentáció - https://laravel.com/docs/8.x/sail  
+.env.example alapján .env file tartalmának frissítése és. 
+composer install után  
 Docker image buildelés és container futtatás:
 ```
 bash ./vendor/laravel/sail/bin/sail build --no-cache
