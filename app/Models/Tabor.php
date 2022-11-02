@@ -111,8 +111,16 @@ class Tabor extends BaseModel
     public function scopeRegisztracioAktiv(Builder $builder)
     {
         return $builder
-            ->where("REG_start", "<=", DB::raw("now()"))
-            ->where("REG_end", ">=", DB::raw("now()"));
+            ->where(function (Builder $b){
+                return $b
+                    ->orWhere("REG_start", "<=", DB::raw("now()"))
+                    ->orWhereNull("REG_start");
+            })
+            ->where(function (Builder $b){
+                return $b
+                    ->orWhere("REG_end", ">=", DB::raw("now()"))
+                    ->orWhereNull("REG_end");
+            });
     }
 
     public function regisztracioAktivE()

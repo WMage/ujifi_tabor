@@ -2,6 +2,12 @@
 use \App\Service\Template;
 /** @var \Illuminate\Support\Collection|\App\Models\Tabor[] $tabor_list  */
 /** @var int $tabor_id  */
+/** @var int[] $tabor_napok_list  */
+/** @var int[] $selected_tabor_napok_list */
+/** @var string[] $dieta_list */
+/** @var string[] $selected_dieta_list */
+/** @var string[] $segito_munka_list */
+/** @var string[] $selected_segito_munka_list */
 ?>
 @extends('layouts.app')
 
@@ -15,7 +21,7 @@ use \App\Service\Template;
             <table border="1">
                 <tr>
                     <td>Tábor kiválasztása:</td>
-                    <td><?= Template::generateSelect('tabor_id', $tabor_list, oldV('tabor_id', $tabor_id), array('ID', 'nev')) ?></td>
+                    <td><?= Template::generateSelect('tabor_id', $tabor_list, oldV('tabor_id', $tabor_id), array('ID', 'nev'), true) ?></td>
                 </tr>
                 <tr>
                     <td>E-mail</td>

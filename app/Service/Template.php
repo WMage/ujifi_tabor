@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use Illuminate\Support\Collection;
+
 /**
  * Created by PhpStorm.
  * User: White Mage
@@ -14,7 +16,7 @@ class Template extends Singleton
     /**
      * @function generateSelect generates html option select from list by selected tag
      * @param string $name
-     * @param array $list
+     * @param array|Collection $list
      * @param string $selected id of default selected value
      * @param array $match field matching
      * @param bool $autoSubmit
