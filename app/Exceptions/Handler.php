@@ -50,6 +50,9 @@ class Handler extends ExceptionHandler
 
         if ($request->wantsJson()) {
             $status = $e->getCode();
+            if ($status === 0) {
+                $status = 400;
+            }
             if (in_array($status, [204, 404])) {
                 return response()->noContent($status);
             } else {

@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tabor;
+use App\Http\Response\ControllerResponse;
 use App\Repositories\NapokRepository;
 use App\Repositories\TaborRepository;
-use App\Service\Template;
-use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -23,18 +21,20 @@ class IndexController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return ControllerResponse
      * @throws \ReflectionException
      */
     private function _jelentkezesMegjelenitese()
     {
-
         $taborRepository = TaborRepository::getInstance();
         $napokRepository = NapokRepository::getInstance();
 
         $tabor_list = $taborRepository->getElerhetoTaborok();
         if ($tabor_list->isEmpty()) {
-            return view('tabor/jelentkezes')->with(compact("tabor_list"));
+            return new ControllerResponse(
+                'tabor.jelentkezes',
+                compact("tabor_list")
+            );
         }
         $tabor_id = $taborRepository->getKijeloltTaborId() ?: $tabor_list->first()->ID;
 
@@ -45,8 +45,9 @@ class IndexController extends Controller
         $segito_munka_list = [];
         $selected_segito_munka_list = [];
         $aszf = "";
-        return view('tabor/jelentkezes')
-            ->with(compact(
+        return new ControllerResponse(
+            'tabor.jelentkezes',
+            compact(
                 "tabor_list",
                 "tabor_id",
                 "tabor_napok_list",
