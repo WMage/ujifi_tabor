@@ -9,7 +9,7 @@ use App\Repositories\TaborRepository;
 class IndexController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return ControllerResponse
      * @throws \ReflectionException
      */
     public function index()
