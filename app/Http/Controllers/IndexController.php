@@ -27,8 +27,8 @@ class IndexController extends Controller
     private function _jelentkezesMegjelenitese()
     {
         $taborRepository = TaborRepository::getInstance();
-        $napokRepository = NapokRepository::getInstance();
 
+        //<editor-fold desc="TABOR_SELECT">
         $tabor_list = $taborRepository->getElerhetoTaborok();
         if ($tabor_list->isEmpty()) {
             return new ControllerResponse(
@@ -37,9 +37,15 @@ class IndexController extends Controller
             );
         }
         $tabor_id = $taborRepository->getKijeloltTaborId() ?: $tabor_list->first()->ID;
+        //</editor-fold>
 
+        //<editor-fold desc="TABOR_NAPOK">
+        $napokRepository = NapokRepository::getInstance();
         $selected_tabor_napok_list = $this->request->post('tabor_napok_lista') ?: [];
         $tabor_napok_list = $napokRepository->getTaborNapok($tabor_id);
+        //</editor-fold>
+
+
         $dieta_list = [];
         $selected_dieta_list = [];
         $segito_munka_list = [];

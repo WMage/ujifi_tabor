@@ -34,7 +34,40 @@ use Illuminate\Support\Facades\DB;
  */
 class Tabor extends BaseModel
 {
-    protected $table = "tabor";
+    protected $table = 'tabor';
+
+    protected $casts = [
+        'ID' => 'int',
+        'motto' => 'string',
+        'ID_aszf' => 'int',
+        'varos' => 'string',
+        'cim' => 'string',
+        'ferohely' => 'int',
+        'kor_min' => 'int',
+        'kor_max' => 'int',
+    ];
+
+    protected $dates = [
+        'REG_start',
+        'REG_end',
+        'DATE_creation',
+        'DATE_lastmod',
+    ];
+
+    protected $fillable = [
+        'ID',
+        'motto',
+        'ID_aszf',
+        'varos',
+        'cim',
+        'ferohely',
+        'kor_min',
+        'kor_max',
+        'REG_start',
+        'REG_end',
+        'DATE_creation',
+        'DATE_lastmod',
+    ];
 
     public function lezarult(): bool
     {
@@ -111,12 +144,12 @@ class Tabor extends BaseModel
     public function scopeRegisztracioAktiv(Builder $builder)
     {
         return $builder
-            ->where(function (Builder $b){
+            ->where(function (Builder $b) {
                 return $b
                     ->orWhere("REG_start", "<=", DB::raw("now()"))
                     ->orWhereNull("REG_start");
             })
-            ->where(function (Builder $b){
+            ->where(function (Builder $b) {
                 return $b
                     ->orWhere("REG_end", ">=", DB::raw("now()"))
                     ->orWhereNull("REG_end");
