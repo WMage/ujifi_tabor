@@ -50,12 +50,12 @@ class IndexController extends Controller
 
         //<editor-fold desc="DIETA">
         $selected_dieta_list = $this->request->post('dieta_erzekenyseg_lista') ?: [];
-        $dieta_list = Dieta::all();
+        $dieta_list = Dieta::where('megnevezes', '<>', '')->get();
         //</editor-fold>
 
         //<editor-fold desc="SEGITO_MUNKA">
         $selected_segito_munka_list = $this->request->post('segito_munka_lista') ?: [];
-        $segito_munka_list = Segitomunka::all();
+        $segito_munka_list = Segitomunka::where('alias', '<>', '')->get();
         //</editor-fold>
 
         $aszf = "";
@@ -84,7 +84,7 @@ class IndexController extends Controller
             return false;
         }
         $dietaRepo = DietaRepository::getInstance();
-        $dietaRepo->mentesSzovegbol($this->request->post('dieta_erzekenyseg_tovabbi'));
+        $dietaRepo->mentesSzovegbol($this->request->post('dieta_erzekenyseg_tovabbi') ?: '');
         //jelentkezés rögzítése
         return false;
     }
