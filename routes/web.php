@@ -25,5 +25,4 @@ Route::controller(AdminController::class)->middleware('auth')->prefix("/admin")-
     include "groupRoutes/admin.php";
 });
 Auth::routes(["register" => false, "reset" => false]);
-//ifitabor/HgGH8P12tabor
 
