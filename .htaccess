@@ -8,7 +8,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [L]
 
-<If "req('Host') = 'https://tabor.fokolare.hu/'">
+<If "req('Host') = 'tabor.fokolare.hu'">
     AuthType Basic
     AuthName "Protected Site"
     AuthUserFile /home/fokolare/tabor.fokolare.hu/.htpasswd
