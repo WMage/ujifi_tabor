@@ -1,8 +1,8 @@
 <?php
 use \App\Service\Template;
-/** @var \Illuminate\Support\Collection|\App\Models\Tabor[] $tabor_list  */
-/** @var int $tabor_id  */
-/** @var int[] $tabor_napok_list  */
+/** @var \Illuminate\Support\Collection|\App\Models\Tabor[] $tabor_list */
+/** @var int $tabor_id */
+/** @var int[] $tabor_napok_list */
 /** @var int[] $selected_tabor_napok_list */
 /** @var string[] $dieta_list */
 /** @var string[] $selected_dieta_list */
@@ -66,13 +66,29 @@ use \App\Service\Template;
                 </tr>
                 <tr>
                     <td>Ételérzékenység/diéta</td>
-                    <td><?= Template::generateChecbox('dieta_erzekenyseg_lista', $dieta_list, $selected_dieta_list, array('ID', 'megnevezes')) ?>
-                        Egyéb(vesszővel tagolt):<input name="dieta_erzekenyseg_lista[]" type="text" title=""></td>
+                    <td>
+                        <?= Template::generateChecbox('dieta_erzekenyseg_lista', $dieta_list, $selected_dieta_list, array('ID', 'megnevezes')) ?>
+                        Egyéb(vesszővel tagolt):
+                        <input
+                                name="dieta_erzekenyseg_tovabbi"
+                                type="text"
+                                title=""
+                                value="{{ oldV('dieta_erzekenyseg_tovabbi') }}"
+                        >
+                    </td>
                 </tr>
                 <tr>
                     <td>Szívesen segítek ezekben</td>
-                    <td><?= Template::generateChecbox('segito_munka_lista', $segito_munka_list, $selected_segito_munka_list, array('ID', 'megnevezes')) ?>
-                        Egyéb(vesszővel tagolt):<input name="segito_munka_lista[]" type="text" title=""></td>
+                    <td>
+                        <?= Template::generateChecbox('segito_munka_lista', $segito_munka_list, $selected_segito_munka_list, array('alias', 'megnevezes')) ?>
+                        Egyéb(vesszővel tagolt):
+                        <input
+                                name="segito_munka_tovabbi"
+                                type="text"
+                                title=""
+                                value="{{ oldV('segito_munka_tovabbi') }}"
+                        >
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2">

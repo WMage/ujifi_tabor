@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Response\ControllerResponse;
+use App\Models\Dieta;
+use App\Models\Segitomunka;
+use App\Repositories\DietaRepository;
 use App\Repositories\NapokRepository;
 use App\Repositories\TaborRepository;
 
@@ -26,30 +29,35 @@ class IndexController extends Controller
      */
     private function _jelentkezesMegjelenitese()
     {
-        $taborRepository = TaborRepository::getInstance();
+        $taborRepo = TaborRepository::getInstance();
 
         //<editor-fold desc="TABOR_SELECT">
-        $tabor_list = $taborRepository->getElerhetoTaborok();
+        $tabor_list = $taborRepo->getElerhetoTaborok();
         if ($tabor_list->isEmpty()) {
             return new ControllerResponse(
                 'tabor.jelentkezes',
                 compact("tabor_list")
             );
         }
-        $tabor_id = $taborRepository->getKijeloltTaborId() ?: $tabor_list->first()->ID;
+        $tabor_id = $taborRepo->getKijeloltTaborId() ?: $tabor_list->first()->ID;
         //</editor-fold>
 
         //<editor-fold desc="TABOR_NAPOK">
-        $napokRepository = NapokRepository::getInstance();
+        $napokRepo = NapokRepository::getInstance();
         $selected_tabor_napok_list = $this->request->post('tabor_napok_lista') ?: [];
-        $tabor_napok_list = $napokRepository->getTaborNapok($tabor_id);
+        $tabor_napok_list = $napokRepo->getTaborNapok($tabor_id);
         //</editor-fold>
 
+        //<editor-fold desc="DIETA">
+        $selected_dieta_list = $this->request->post('dieta_erzekenyseg_lista') ?: [];
+        $dieta_list = Dieta::all();
+        //</editor-fold>
 
-        $dieta_list = [];
-        $selected_dieta_list = [];
-        $segito_munka_list = [];
-        $selected_segito_munka_list = [];
+        //<editor-fold desc="SEGITO_MUNKA">
+        $selected_segito_munka_list = $this->request->post('segito_munka_lista') ?: [];
+        $segito_munka_list = Segitomunka::all();
+        //</editor-fold>
+
         $aszf = "";
         return new ControllerResponse(
             'tabor.jelentkezes',
@@ -66,11 +74,17 @@ class IndexController extends Controller
             ));
     }
 
+    /**
+     * @return bool
+     * @throws \ReflectionException
+     */
     private function _jelentkezesVegrehajtasiKiserlet(): bool
     {
         if ($this->request->method() !== 'POST') {
             return false;
         }
+        $dietaRepo = DietaRepository::getInstance();
+        $dietaRepo->mentesSzovegbol($this->request->post('dieta_erzekenyseg_tovabbi'));
         //jelentkezés rögzítése
         return false;
     }
