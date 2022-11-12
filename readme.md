@@ -12,11 +12,12 @@
 Dokumentáció - https://laravel.com/docs/8.x/sail  
 .env.example alapján .env file tartalmának frissítése és. 
 composer install után  
-Docker image buildelés és container futtatás:
+Docker image buildelés és container futtatás, DB migráció és seedelés:
 ```
 bash ./vendor/laravel/sail/bin/sail build --no-cache
 bash ./vendor/laravel/sail/bin/sail up
 bash ./vendor/laravel/sail/bin/sail artisan migrate
+bash ./vendor/laravel/sail/bin/sail artisan db:seed
 ```
 7.4-es PHP-t használ
 
