@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Response\ControllerResponse;
 use App\Models\Dieta;
+use App\Models\Jelentkezo;
 use App\Models\Segitomunka;
 use App\Repositories\DietaRepository;
 use App\Repositories\NapokRepository;
+use App\Repositories\SegitomunkaRepository;
 use App\Repositories\TaborRepository;
 
 class IndexController extends Controller
@@ -17,8 +19,8 @@ class IndexController extends Controller
      */
     public function index()
     {
-        if ($this->_jelentkezesVegrehajtasiKiserlet()) {
-            return $this->_jelentkezesSikeresVisszajelzes();
+        if (($j=$this->_jelentkezesVegrehajtasiKiserlet())!==null) {
+            return $this->_jelentkezesSikeresVisszajelzes($j);
         }
         return $this->_jelentkezesMegjelenitese();
     }
@@ -78,18 +80,23 @@ class IndexController extends Controller
      * @return bool
      * @throws \ReflectionException
      */
-    private function _jelentkezesVegrehajtasiKiserlet(): bool
+    private function _jelentkezesVegrehajtasiKiserlet(): ?Jelentkezo
     {
         if ($this->request->method() !== 'POST') {
             return false;
         }
         $dietaRepo = DietaRepository::getInstance();
-        $dietaRepo->mentesSzovegbol($this->request->post('dieta_erzekenyseg_tovabbi') ?: '');
+        $dietak = $dietaRepo->ujErtekSzovegbol($this->request->post('dieta_erzekenyseg_tovabbi') ?: '');
+        $segitoRepo = SegitomunkaRepository::getInstance();
+        $munkak = $segitoRepo->ujErtekSzovegbol($this->request->post('segito_munka_tovabbi') ?: '');
+
+        Jelentkezo::create([]);
+
         //jelentkezés rögzítése
         return false;
     }
 
-    private function _jelentkezesSikeresVisszajelzes()
+    private function _jelentkezesSikeresVisszajelzes(Jelentkezo $jelentkezo)
     {
         //jelentkezés sikeres volt, email küldés + display a frontnak
     }

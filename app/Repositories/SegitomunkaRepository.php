@@ -9,17 +9,19 @@
 namespace App\Repositories;
 
 use App\Models\Dieta;
+use App\Models\Segitomunka;
+use Illuminate\Support\Str;
 
 /**
- * Class DietaRepository
+ * Class SegitomunkaRepository
  * @package App\Repositories
  *
- * @method static DietaRepository getInstance()
+ * @method static SegitomunkaRepository getInstance()
  */
-class DietaRepository extends MainRepository
+class SegitomunkaRepository extends MainRepository
 {
     /** @var string|Dieta */
-    protected $model = Dieta::class;
+    protected $model = Segitomunka::class;
 
     public function ujErtekSzovegbol(string $bemenet): array
     {

@@ -11,6 +11,12 @@ namespace App\Repositories;
 use App\Models\BaseModel;
 use App\Service\Singleton;
 
+/**
+ * Class MainRepository
+ * @package App\Repositories
+ *
+ * @mixin BaseModel
+ */
 abstract class MainRepository extends Singleton
 {
     /**
@@ -22,5 +28,26 @@ abstract class MainRepository extends Singleton
     final protected function Load()
     {
         $this->model = new $this->model;
+    }
+
+    final public function getModel(){
+        return $this->model;
+    }
+
+    public function __call($name, $arguments)
+    {
+        //dd($name, static::class, $this->)
+        return $this->model->$name(...$arguments);
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     * @throws \ReflectionException
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        return static::getInstance()->getModel()::$name(...$arguments);
     }
 }

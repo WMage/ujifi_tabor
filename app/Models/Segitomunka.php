@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
+
 /**
  * @property int $ID
  * @property string $megnevezes
@@ -10,10 +12,11 @@ namespace App\Models;
 class Segitomunka extends BaseModel
 {
     protected $table = "segitomunka";
+    protected $fillable = ['ID', 'megnevezes'];
 
     public function setMegnevezesAttribute($value)
     {
         $this->attributes["megnevezes"] = $value;
-        $this->alias = str_replace(" ", "_", iconv("UTF-8", "ASCII//TRANSLIT", $value));
+        $this->alias = Str::slug($value, '_');/*str_replace(" ", "_", iconv("UTF-8", "ASCII//TRANSLIT", $value));*/
     }
 }
