@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\DB;
  * @property Collection|Jelentkezo[] $jelentkezok
  * @property Collection|Jelentkezo[] $lehetsegesCsopVezJelentkezok
  * @property Collection|Jelentkezo[] $csopNelkuliJelentkezok
+ * @property Aszf $aszf
  *
  * -scopes
  * @method static Builder regisztracioAktiv()
@@ -101,6 +102,15 @@ class Tabor extends BaseModel
             Jelentkezo::class,
             "ID_tabor",
             "ID"
+        );
+    }
+
+    public function aszf()
+    {
+        return $this->hasOne(
+            Aszf::class,
+            "ID",
+            "ID_aszf"
         );
     }
 
