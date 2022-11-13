@@ -15,7 +15,7 @@ class CreateDietaTable extends Migration
     {
         Schema::create('dieta', function (Blueprint $table) {
             $table->integer('ID', true)->index('ID');
-            $table->string('megnevezes')->nullable()->unique('megnevezes');
+            $table->string('megnevezes', 100)->nullable()->unique('megnevezes');
         });
     }
 

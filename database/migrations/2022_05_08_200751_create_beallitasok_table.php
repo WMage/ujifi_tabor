@@ -15,9 +15,9 @@ class CreateBeallitasokTable extends Migration
     {
         Schema::create('beallitasok', function (Blueprint $table) {
             $table->integer('ID', true);
-            $table->string('kulcs')->nullable();
-            $table->string('ertek')->nullable();
-            $table->string('tabla')->nullable();
+            $table->string('kulcs',50)->nullable();
+            $table->string('ertek',255)->nullable();
+            $table->string('tabla',50)->nullable();
 
             $table->unique(['kulcs', 'tabla'], 'kulcs');
         });
