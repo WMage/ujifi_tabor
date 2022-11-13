@@ -31,7 +31,7 @@ if (!function_exists("oldV")) {
     {
         /** @var \Illuminate\Http\Request $request */
         $request = app('request');
-        return $request->get($key) ?: $default;
+        return $request->get($key) ?: $request->old($key, $default);
     }
 }
 

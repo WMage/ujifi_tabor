@@ -10,16 +10,22 @@ use App\Repositories\DietaRepository;
 use App\Repositories\NapokRepository;
 use App\Repositories\SegitomunkaRepository;
 use App\Repositories\TaborRepository;
+use App\Http\Requests\Index\JelentkezesRequest;
 
+/**
+ * @property JelentkezesRequest $req
+ */
 class IndexController extends Controller
 {
+    protected $validatorReq = JelentkezesRequest::class;
+
     /**
      * @return ControllerResponse
      * @throws \ReflectionException
      */
     public function index()
     {
-        if (($j=$this->_jelentkezesVegrehajtasiKiserlet())!==null) {
+        if (($j = $this->_jelentkezesVegrehajtasiKiserlet()) !== null) {
             return $this->_jelentkezesSikeresVisszajelzes($j);
         }
         return $this->_jelentkezesMegjelenitese();
@@ -44,23 +50,27 @@ class IndexController extends Controller
         $tabor_id = $taborRepo->getKijeloltTaborId() ?: $tabor_list->first()->ID;
         //</editor-fold>
 
+        //<editor-fold desc="ASZF">
+        //$tabor = $taborRepo->findOrFail($tabor_id);
+        $aszf = '';//Aszf::findOrFail($tabor->ID_aszf)->text;
+        //</editor-fold>
+
         //<editor-fold desc="TABOR_NAPOK">
         $napokRepo = NapokRepository::getInstance();
-        $selected_tabor_napok_list = $this->request->post('tabor_napok_lista') ?: [];
+        $selected_tabor_napok_list = $this->req->tabor_napok_lista ?: [];
         $tabor_napok_list = $napokRepo->getTaborNapok($tabor_id);
         //</editor-fold>
 
         //<editor-fold desc="DIETA">
-        $selected_dieta_list = $this->request->post('dieta_erzekenyseg_lista') ?: [];
+        $selected_dieta_list = $this->req->dieta_erzekenyseg_lista ?: [];
         $dieta_list = Dieta::where('megnevezes', '<>', '')->get();
         //</editor-fold>
 
         //<editor-fold desc="SEGITO_MUNKA">
-        $selected_segito_munka_list = $this->request->post('segito_munka_lista') ?: [];
+        $selected_segito_munka_list = $this->req->segito_munka_lista ?: [];
         $segito_munka_list = Segitomunka::where('alias', '<>', '')->get();
         //</editor-fold>
 
-        $aszf = "";
         return new ControllerResponse(
             'tabor.jelentkezes',
             compact(
@@ -82,18 +92,20 @@ class IndexController extends Controller
      */
     private function _jelentkezesVegrehajtasiKiserlet(): ?Jelentkezo
     {
-        if ($this->request->method() !== 'POST') {
-            return false;
+        if ($this->req->method() !== 'POST') {
+            return null;
         }
         $dietaRepo = DietaRepository::getInstance();
-        $dietak = $dietaRepo->ujErtekSzovegbol($this->request->post('dieta_erzekenyseg_tovabbi') ?: '');
+        $dietak = $dietaRepo->ujErtekSzovegbol($this->req->post('dieta_erzekenyseg_tovabbi') ?: '');
         $segitoRepo = SegitomunkaRepository::getInstance();
-        $munkak = $segitoRepo->ujErtekSzovegbol($this->request->post('segito_munka_tovabbi') ?: '');
+        $munkak = $segitoRepo->ujErtekSzovegbol($this->req->post('segito_munka_tovabbi') ?: '');
 
-        Jelentkezo::create([]);
+        /*Jelentkezo::create([
+            'tabor_id' => $this->req->post()
+        ]);*/
 
         //jelentkezés rögzítése
-        return false;
+        return null;
     }
 
     private function _jelentkezesSikeresVisszajelzes(Jelentkezo $jelentkezo)

@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use App\Exceptions\Kiirathato\KiirathatoException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Log\Logger;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -46,6 +48,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         report($e);
+        Log::error($e);
         //if(in_array($e->getCode(), [404,500]))
 
         if ($request->wantsJson()) {

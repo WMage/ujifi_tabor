@@ -17,6 +17,15 @@ use \App\Service\Template;
             Sajnáljuk, jelenleg 1 táborra sincs lehetőség regisztrálni
         </h3>
     @else
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="post">
             <table border="1">
                 <tr>
