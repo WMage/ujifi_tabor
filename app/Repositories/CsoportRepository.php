@@ -21,7 +21,7 @@ use App\Models\Jelentkezo;
 class CsoportRepository extends MainRepository
 {
     /** @var string|Csoport */
-    protected $model = Csoport::class;
+    protected string $model = Csoport::class;
 
     /**
      * @param array $data

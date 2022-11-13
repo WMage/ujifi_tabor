@@ -13,6 +13,6 @@ use App\Models\Szerepkor;
 class SzerepkorRepository extends MainRepository
 {
     /** @var string|Szerepkor */
-    protected $model = Szerepkor::class;
+    protected string $model = Szerepkor::class;
 
 }

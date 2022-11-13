@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use ReflectionException;
 use ReflectionMethod;
 
 /**
@@ -13,9 +14,9 @@ use ReflectionMethod;
 class Singleton
 {
     protected static $sessionData;
-    private static $instances = array();
+    private static array $instances = array();
     protected $className;
-    protected $initMethod = "Load";
+    protected string $initMethod = "Load";
 
     protected function __construct()
     {
@@ -29,11 +30,10 @@ class Singleton
      * @param string $name
      * @param array $params
      * @return mixed
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
-    public static function getInstance($name = '', $params = array())
+    public static function getInstance(string $name = '', array $params = [])
     {
-
         if (($callerName = get_called_class()) != get_class()) {
             $params = $name;
             $name = $callerName;

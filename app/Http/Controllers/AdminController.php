@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminTraits\VerzioKezelesTrait;
 use App\Http\Response\ControllerResponse;
 use App\Repositories\TaborRepository;
 use App\Models\User;
+use ReflectionException;
 
 class AdminController extends Controller
 {
@@ -28,9 +29,9 @@ class AdminController extends Controller
 
     /**
      * @return ControllerResponse
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
-    public function index()
+    public function index(): ControllerResponse
     {
         $user = $this->getUser();
         $tabor_list = $user->taborok;

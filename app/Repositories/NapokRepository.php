@@ -20,7 +20,7 @@ use Illuminate\Support\Collection;
 class NapokRepository extends MainRepository
 {
     /** @var string|Napok */
-    protected $model = Napok::class;
+    protected string $model = Napok::class;
 
     public function getTaborNapok(int $taborId): Collection
     {

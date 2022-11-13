@@ -23,9 +23,9 @@ abstract class MainRepository extends Singleton
      * add class name what primary related for repo, later find here its instance
      * @var BaseModel|string $model
      */
-    protected $model;
+    protected string $model;
 
-    final protected function Load()
+    final protected function load()
     {
         $this->model = new $this->model;
     }

@@ -11,6 +11,8 @@ use App\Repositories\NapokRepository;
 use App\Repositories\SegitomunkaRepository;
 use App\Repositories\TaborRepository;
 use App\Http\Requests\Index\JelentkezesRequest;
+use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property JelentkezesRequest $req
@@ -100,9 +102,27 @@ class IndexController extends Controller
         $segitoRepo = SegitomunkaRepository::getInstance();
         $munkak = $segitoRepo->ujErtekSzovegbol($this->req->post('segito_munka_tovabbi') ?: '');
 
-        /*Jelentkezo::create([
-            'tabor_id' => $this->req->tabor_id
-        ]);*/
+        $userRepo = UserRepository::getInstance();
+        $user = $userRepo->getOrRegister($this->req->email, $this->req->nev_kereszt, $uj);
+        /*try {
+            DB::beginTransaction();
+            Jelentkezo::create([
+                'tabor_id' => $this->req->tabor_id,
+                'nev_elotag' => $this->req->nev_elotag,
+                'nev_vezetek' => $this->req->nev_vezetek,
+                'nev_kereszt' => $this->req->nev_kereszt,
+                'email' => $this->req->email,
+                'szuletesnap' => $this->req->szuletesnap,
+                //'nem' => $this->req->nem,
+                'szallas_kulcsszo' => $this->req->szallas_kulcsszo,
+                'szuletesnap' => $this->req->szuletesnap,
+                'szuletesnap' => $this->req->szuletesnap,
+                'szuletesnap' => $this->req->szuletesnap,
+            ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }*/
 
         //jelentkezés rögzítése
         return null;

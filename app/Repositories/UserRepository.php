@@ -13,6 +13,7 @@ use App\Models\JelentkezoJog;
 use App\Models\Tabor;
 use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 /**
  * Class UserRepository
@@ -23,14 +24,14 @@ use Illuminate\Support\Collection;
 class UserRepository extends MainRepository
 {
     /** @var string|User */
-    protected $model = User::class;
-    protected $initMethod = "LoadData";
-    /** @var User */
-    protected $user;
+    protected string $model = User::class;
+    protected string $initMethod = "loadData";
+    protected User $user;
 
-    protected function LoadData(): void
+    protected function loadData(): void
     {
-        $this->Load();
+        $this->load();
+        /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
         $this->user = auth()->user();
     }
 
@@ -47,5 +48,18 @@ class UserRepository extends MainRepository
             "=",
             $tJ . ".ID"
         )->get();
+    }
+
+    public function getOrRegister(string $email, string $nev, ?bool &$uj = null): User
+    {
+        $user = User::where('email', '=', $email)->first();
+        if ($uj = ($user === null)) {
+            $user = User::create([
+                'email' => $email,
+                'name' => Str::slug($nev),
+            ]);
+            //TODO: jelszó hozzáadása és megerősítő email küldése
+        }
+        return $user;
     }
 }

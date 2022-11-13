@@ -14,12 +14,12 @@ use App\Models\Jelentkezo;
  * Class JelentkezoRepository
  * @package App\Repositories
  *
- * @method static self getInstance($name = '', $params = array())
+ * @method static self getInstance(string $name = '', array $params = array())
  */
 class JelentkezoRepository extends MainRepository
 {
     /** @var string|Jelentkezo */
-    protected $model = Jelentkezo::class;
+    protected string $model = Jelentkezo::class;
 
     public function letezikE($nev_elotag, $nev_vezetek, $nev_kereszt, $email, $taborId, $szuletesnap): bool
     {
