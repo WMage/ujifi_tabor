@@ -19,7 +19,7 @@ use App\Models\Jelentkezo;
 class JelentkezoRepository extends MainRepository
 {
     /** @var string|Jelentkezo */
-    protected string $model = Jelentkezo::class;
+    protected $model = Jelentkezo::class;
 
     public function letezikE($nev_elotag, $nev_vezetek, $nev_kereszt, $email, $taborId, $szuletesnap): bool
     {

@@ -13,6 +13,7 @@ use App\Repositories\TaborRepository;
 use App\Http\Requests\Index\JelentkezesRequest;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\DB;
+use ReflectionException;
 
 /**
  * @property JelentkezesRequest $req
@@ -23,7 +24,7 @@ class IndexController extends Controller
 
     /**
      * @return ControllerResponse
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function index()
     {
@@ -35,7 +36,7 @@ class IndexController extends Controller
 
     /**
      * @return ControllerResponse
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     private function _jelentkezesMegjelenitese()
     {
@@ -89,8 +90,8 @@ class IndexController extends Controller
     }
 
     /**
-     * @return bool
-     * @throws \ReflectionException
+     * @return Jelentkezo|null
+     * @throws ReflectionException
      */
     private function _jelentkezesVegrehajtasiKiserlet(): ?Jelentkezo
     {
@@ -103,7 +104,8 @@ class IndexController extends Controller
         $munkak = $segitoRepo->ujErtekSzovegbol($this->req->post('segito_munka_tovabbi') ?: '');
 
         $userRepo = UserRepository::getInstance();
-        $user = $userRepo->getOrRegister($this->req->email, $this->req->nev_kereszt, $uj);
+        $user = $userRepo->getOrRegister($this->req->email, $this->req->nev_kereszt, $this->req->szuletesnap, $uj);
+        dd($user->toArray(), $uj);
         /*try {
             DB::beginTransaction();
             Jelentkezo::create([

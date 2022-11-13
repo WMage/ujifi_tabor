@@ -13,6 +13,7 @@ use App\Models\JelentkezoJog;
 use App\Models\Tabor;
 use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -24,14 +25,13 @@ use Illuminate\Support\Str;
 class UserRepository extends MainRepository
 {
     /** @var string|User */
-    protected string $model = User::class;
+    protected $model = User::class;
     protected string $initMethod = "loadData";
-    protected User $user;
+    protected ?User $user;
 
     protected function loadData(): void
     {
         $this->load();
-        /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
         $this->user = auth()->user();
     }
 
@@ -50,15 +50,18 @@ class UserRepository extends MainRepository
         )->get();
     }
 
-    public function getOrRegister(string $email, string $nev, ?bool &$uj = null): User
+    public function getOrRegister(string $email, string $nev, string $szuletesnap, ?bool &$uj = null): User
     {
         $user = User::where('email', '=', $email)->first();
         if ($uj = ($user === null)) {
+            $nev = Str::slug($nev);
             $user = User::create([
                 'email' => $email,
-                'name' => Str::slug($nev),
+                'name' => $nev,
+                'password' => Hash::make($nev . ' ' . $szuletesnap),
+                'api_token' => Str::random(60),
             ]);
-            //TODO: jelszó hozzáadása és megerősítő email küldése
+            //TODO: megerősítő email küldése
         }
         return $user;
     }

@@ -41,8 +41,8 @@ class Controller extends \Illuminate\Routing\Controller
     /**
      * Execute an action on the controller.
      *
-     * @param  string $method
-     * @param  array $parameters
+     * @param string $method
+     * @param array $parameters
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws ControllerException|\Illuminate\Contracts\Container\BindingResolutionException
      */
@@ -69,11 +69,13 @@ class Controller extends \Illuminate\Routing\Controller
             ||
             ($this->req->method() === 'GET')
         ) {
-            report (new ControllerException('nincs validator'));
+            report(new ControllerException('nincs validator'));
             return;
         }
+        $method = $this->req->getMethod();
         $this->req = (new $validatorClass($this->req->all()));
-        app(Factory::class)->make($this->req->all(),$this->req->rules())->validate();
+        $this->req->setMethod($method);
+        app(Factory::class)->make($this->req->all(), $this->req->rules())->validate();
 
     }
 }

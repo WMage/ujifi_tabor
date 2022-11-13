@@ -21,7 +21,7 @@ use Illuminate\Support\Collection;
 class TaborRepository extends MainRepository
 {
     /** @var string|Tabor */
-    protected string $model = Tabor::class;
+    protected $model = Tabor::class;
 
     public function getOsszesTaborok(): Collection
     {

@@ -21,7 +21,7 @@ use Illuminate\Support\Str;
 class SegitomunkaRepository extends MainRepository
 {
     /** @var string|Dieta */
-    protected string $model = Segitomunka::class;
+    protected $model = Segitomunka::class;
 
     public function ujErtekSzovegbol(string $bemenet): array
     {

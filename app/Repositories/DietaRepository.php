@@ -19,7 +19,7 @@ use App\Models\Dieta;
 class DietaRepository extends MainRepository
 {
     /** @var string|Dieta */
-    protected string $model = Dieta::class;
+    protected $model = Dieta::class;
 
     public function ujErtekSzovegbol(string $bemenet): array
     {

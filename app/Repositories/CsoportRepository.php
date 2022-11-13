@@ -9,6 +9,7 @@
 namespace App\Repositories;
 
 use App\Exceptions\Kiirathato\ControllerException;
+use App\Models\BaseModel;
 use App\Models\Csoport;
 use App\Models\Jelentkezo;
 
@@ -21,7 +22,7 @@ use App\Models\Jelentkezo;
 class CsoportRepository extends MainRepository
 {
     /** @var string|Csoport */
-    protected string $model = Csoport::class;
+    protected $model = Csoport::class;
 
     /**
      * @param array $data
