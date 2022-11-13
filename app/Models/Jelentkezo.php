@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 
 /**
@@ -17,7 +19,7 @@ use Illuminate\Support\Collection;
  * @property string $szallas_kulcsszo
  * @property string $nem
  * @property int $eloleg
- * @property boolean $eloleg_megerkezett
+ * @property Carbon|string $eloleg_megerkezett
  * @property boolean $taborba_megerkezett
  * @property int $ID_szallasszoba
  * @property int $ID_csoport
@@ -72,7 +74,6 @@ class Jelentkezo extends BaseModel
         'szallas_kulcsszo' => 'string',
         'nem' => 'string',
         'eloleg' => 'int',
-        'eloleg_megerkezett' => 'boolean',
         'taborba_megerkezett' => 'boolean',
         'ID_szallasszoba' => 'int',
         'ID_csoport' => 'int',
@@ -87,9 +88,10 @@ class Jelentkezo extends BaseModel
         'DATE_lastmod',
         'nevnap',
         'szuletesnap',
+        'eloleg_megerkezett',
     ];
 
-    public function szerepkor()
+    public function szerepkor(): HasOne
     {
         return $this->hasOne(
             Szerepkor::class,
@@ -98,7 +100,7 @@ class Jelentkezo extends BaseModel
         );
     }
 
-    public function aszf()
+    public function aszf(): HasOne
     {
         return $this->hasOne(
             Aszf::class,
@@ -107,7 +109,7 @@ class Jelentkezo extends BaseModel
         );
     }
 
-    public function jogok()
+    public function jogok(): HasManyThrough
     {
         return $this
             ->hasManyThrough(
@@ -135,7 +137,7 @@ class Jelentkezo extends BaseModel
             . ")";
     }
 
-    public function munkak()
+    public function munkak(): HasManyThrough
     {
         return $this->hasManyThrough(
             Segitomunka::class,
@@ -147,7 +149,7 @@ class Jelentkezo extends BaseModel
         );
     }
 
-    public function csoport()
+    public function csoport(): HasOne
     {
         return $this->hasOne(
             Csoport::class,
@@ -156,19 +158,11 @@ class Jelentkezo extends BaseModel
         );
     }
 
-    public function getVezetettCsoport()
+    public function getVezetettCsoport(): Collection
     {
-        return $this->belongsTo(
-            Csoport::class,
-            "ID",
-            "ID_vezeto1"
-        )->get()->merge(
-            $this->belongsTo(
-                Csoport::class,
-                "ID",
-                "ID_vezeto2"
-            )->get()
-        );
+        return Csoport::where('ID_vezeto1', '=', $this->ID)
+            ->orWhere('ID_vezeto2', '=', $this->ID)
+            ->get();
     }
 
 }
