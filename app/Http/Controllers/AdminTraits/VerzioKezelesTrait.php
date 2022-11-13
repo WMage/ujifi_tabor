@@ -10,9 +10,19 @@ namespace App\Http\Controllers\AdminTraits;
 
 trait VerzioKezelesTrait
 {
+    private string $gitRoute = '/home/fokolare/tabor.fokolare.hu';
+
     public function pull(): void
     {
-        dd(exec('cd.. && pwd'),exec('cd.. && pwd'));
-        dd(exec('cd.. && git reset --hard && git pull'));
+        $this->gitExec(['reset --hard', 'pull']);
+    }
+
+    private function gitExec(array $commands): void
+    {
+        $results = [];
+        foreach ($commands as $k => $command) {
+            $results[] = exec('cd ' . $this->gitRoute . ' && git ' . $command);
+        }
+        dd($results);
     }
 }
