@@ -17,7 +17,8 @@ use Illuminate\Support\Collection;
  * @property string $szallas_kulcsszo
  * @property string $nem
  * @property int $eloleg
- * @property Carbon|string $eloleg_megerkezett
+ * @property boolean $eloleg_megerkezett
+ * @property boolean $taborba_megerkezett
  * @property int $ID_szallasszoba
  * @property int $ID_csoport
  * @property int $ID_aszf
@@ -29,12 +30,64 @@ use Illuminate\Support\Collection;
  * --relations
  * @property Szerepkor szerepkor
  * @property Csoport csoport
+ * @property Aszf $aszf
  * @property Collection|Jog[] jogok
  * @property Collection|Segitomunka[] munkak
  */
 class Jelentkezo extends BaseModel
 {
-    protected $table = "jelentkezo";
+    protected $table = 'jelentkezo';
+
+    protected $fillable = [
+        'ID',
+        'ID_tabor',
+        'nev_elotag',
+        'nev_vezetek',
+        'nev_kereszt',
+        'email',
+        'szuletesnap',
+        'nevnap',
+        'szallas_kulcsszo',
+        'nem',
+        'eloleg',
+        'eloleg_megerkezett',
+        'taborba_megerkezett',
+        'ID_szallasszoba',
+        'ID_csoport',
+        'ID_aszf',
+        'DATE_creation',
+        'DATE_lastmod',
+        'ID_szerepkor',
+        'ID_user',
+        'MOD_user',
+    ];
+
+    protected $casts = [
+        'ID' => 'int',
+        'ID_tabor' => 'int',
+        'nev_elotag' => 'string',
+        'nev_vezetek' => 'string',
+        'nev_kereszt' => 'string',
+        'email' => 'string',
+        'szallas_kulcsszo' => 'string',
+        'nem' => 'string',
+        'eloleg' => 'int',
+        'eloleg_megerkezett' => 'boolean',
+        'taborba_megerkezett' => 'boolean',
+        'ID_szallasszoba' => 'int',
+        'ID_csoport' => 'int',
+        'ID_aszf' => 'int',
+        'ID_szerepkor' => 'int',
+        'ID_user' => 'int',
+        'MOD_user' => 'int',
+    ];
+
+    protected $dates = [
+        'DATE_creation',
+        'DATE_lastmod',
+        'nevnap',
+        'szuletesnap',
+    ];
 
     public function szerepkor()
     {
@@ -42,6 +95,15 @@ class Jelentkezo extends BaseModel
             Szerepkor::class,
             "ID",
             "ID_szerepkor"
+        );
+    }
+
+    public function aszf()
+    {
+        return $this->hasOne(
+            Aszf::class,
+            "ID",
+            "ID_aszf"
         );
     }
 
@@ -55,11 +117,10 @@ class Jelentkezo extends BaseModel
                 "ID",
                 "ID",
                 "ID_jog"
-            )
-            /*->select([
+            )/*->select([
                 Jog::getTableName() . ".*",
                 JelentkezoJog::getTableName() . ".szerkesztheti"
-            ])*/;
+            ])*/ ;
     }
 
     public function getTeljesNev(): string
