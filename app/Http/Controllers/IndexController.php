@@ -101,7 +101,7 @@ class IndexController extends Controller
         $munkak = $segitoRepo->ujErtekSzovegbol($this->req->post('segito_munka_tovabbi') ?: '');
 
         /*Jelentkezo::create([
-            'tabor_id' => $this->req->post()
+            'tabor_id' => $this->req->tabor_id
         ]);*/
 
         //jelentkezés rögzítése
