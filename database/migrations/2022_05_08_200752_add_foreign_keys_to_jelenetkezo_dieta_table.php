@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToJelenetkezoDietaTable extends Migration
+class AddForeignKeysToJelentkezoDietaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddForeignKeysToJelenetkezoDietaTable extends Migration
      */
     public function up()
     {
-        Schema::table('jelenetkezo_dieta', function (Blueprint $table) {
-            $table->foreign(['ID_dieta'], 'jelenetkezo_dieta_ibfk_1')->references(['ID'])->on('dieta')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign(['ID_jelentkezo'], 'jelenetkezo_dieta_ibfk_2')->references(['ID'])->on('jelentkezo')->onUpdate('CASCADE')->onDelete('CASCADE');
+        Schema::table('jelentkezo_dieta', function (Blueprint $table) {
+            $table->foreign(['ID_dieta'], 'jelentkezo_dieta_ibfk_1')->references(['ID'])->on('dieta')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign(['ID_jelentkezo'], 'jelentkezo_dieta_ibfk_2')->references(['ID'])->on('jelentkezo')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -26,9 +26,9 @@ class AddForeignKeysToJelenetkezoDietaTable extends Migration
      */
     public function down()
     {
-        Schema::table('jelenetkezo_dieta', function (Blueprint $table) {
-            $table->dropForeign('jelenetkezo_dieta_ibfk_1');
-            $table->dropForeign('jelenetkezo_dieta_ibfk_2');
+        Schema::table('jelentkezo_dieta', function (Blueprint $table) {
+            $table->dropForeign('jelentkezo_dieta_ibfk_1');
+            $table->dropForeign('jelentkezo_dieta_ibfk_2');
         });
     }
 }
