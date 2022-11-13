@@ -13,7 +13,7 @@ class UpdateTabor extends Migration
      */
     public function up()
     {
-        Schema::table(\App\Models\Tabor::getTableName(), function (Blueprint $table) {
+        Schema::table('tabor', function (Blueprint $table) {
             $table->string('nev', 50);
         });
     }
@@ -25,7 +25,7 @@ class UpdateTabor extends Migration
      */
     public function down()
     {
-        Schema::table(\App\Models\Tabor::getTableName(), function (Blueprint $table) {
+        Schema::table('tabor', function (Blueprint $table) {
             $table->dropColumn(['nev']);
         });
     }
