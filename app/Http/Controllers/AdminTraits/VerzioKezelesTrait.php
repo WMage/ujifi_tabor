@@ -12,6 +12,7 @@ trait VerzioKezelesTrait
 {
     public function pull(): void
     {
+        dd(exec('cd.. && pwd'),exec('cd.. && pwd'));
         dd(exec('cd.. && git reset --hard && git pull'));
     }
 }
