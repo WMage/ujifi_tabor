@@ -16,3 +16,5 @@ Route::match(["get", "post"], "/taborok", "taborok")->name("admin.taborok");
 Route::match(["get", "post"], "/tabor/{id}", "tabor")->where('id', '[0-9]*')->name("admin.tabor");
 
 Route::match(["get", "post"], "/felhasznalok", "csoportok")->name("admin.felhasznalok");
+
+Route::match(["get", "post"], "/gitPull", "pull")->name("admin.gitPull");

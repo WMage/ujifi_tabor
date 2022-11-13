@@ -8,27 +8,25 @@
 
 namespace App\Http\Controllers\AdminTraits;
 
-use App\Exceptions\Kiirathato\ControllerException;
+use App\Exceptions\Kiirathato\ErvenytelenJogException;
+use App\Exceptions\Kiirathato\OlvasasiJogHianyzikException;
+use App\Exceptions\Kiirathato\SzerkesztesiJogHianyzikException;
 use App\Http\Response\ControllerResponse;
-use App\Models\Csoport;
-use App\Models\Jelentkezo;
 use App\Models\Tabor;
-use App\Repositories\CsoportRepository;
-use App\Repositories\JelentkezoRepository;
 use App\Repositories\TaborRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use ReflectionException;
 
 trait TaborKezelesTrait
 {
     /**
      * @param Request $request
      * @return ControllerResponse
-     * @throws \App\Exceptions\Kiirathato\ErvenytelenJogException
-     * @throws \App\Exceptions\Kiirathato\OlvasasiJogHianyzikException
-     * @throws \App\Exceptions\Kiirathato\SzerkesztesiJogHianyzikException
-     * @throws \ReflectionException
-     * @throws ControllerException
+     * @throws ErvenytelenJogException
+     * @throws OlvasasiJogHianyzikException
+     * @throws ReflectionException
+     * @throws SzerkesztesiJogHianyzikException
      */
     public function taborok(Request $request): ControllerResponse
     {
@@ -41,14 +39,12 @@ trait TaborKezelesTrait
     }
 
     /**
-     * @param int $tabor_id
      * @param array $data
-     * @return Csoport
-     * @throws \App\Exceptions\Kiirathato\ErvenytelenJogException
-     * @throws \App\Exceptions\Kiirathato\OlvasasiJogHianyzikException
-     * @throws \App\Exceptions\Kiirathato\SzerkesztesiJogHianyzikException
-     * @throws \ReflectionException
-     * @throws ControllerException
+     * @return Tabor
+     * @throws ErvenytelenJogException
+     * @throws OlvasasiJogHianyzikException
+     * @throws SzerkesztesiJogHianyzikException
+     * @throws ReflectionException
      */
     public function ujTabor(array $data): Tabor
     {
@@ -60,11 +56,6 @@ trait TaborKezelesTrait
      * @param int $id
      * @param Request $request
      * @return ControllerResponse
-     * @throws \App\Exceptions\Kiirathato\ErvenytelenJogException
-     * @throws \App\Exceptions\Kiirathato\OlvasasiJogHianyzikException
-     * @throws \App\Exceptions\Kiirathato\SzerkesztesiJogHianyzikException
-     * @throws \ReflectionException
-     * @throws ControllerException
      */
     public function tabor(int $id, Request $request): ControllerResponse
     {
