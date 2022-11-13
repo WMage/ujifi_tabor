@@ -64,10 +64,12 @@ class Controller extends \Illuminate\Routing\Controller
      */
     protected function validateWith(?string $validatorClass = null): void
     {
-        if (empty($validatorClass = $validatorClass ?: $this->validatorReq)) {
-            throw new ControllerException('nincs validator');
-        }
-        if ($this->req->method() === 'GET') {
+        if (
+            empty($validatorClass = $validatorClass ?: $this->validatorReq)
+            ||
+            ($this->req->method() === 'GET')
+        ) {
+            report (new ControllerException('nincs validator'));
             return;
         }
         $this->req = (new $validatorClass($this->req->all()));
