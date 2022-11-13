@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Exceptions\Kiirathato\ControllerException;
 use App\Http\Response\ControllerResponse;
 use App\Http\Requests\BaseRequest;
+use App\Models\User;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -20,6 +22,8 @@ class Controller extends \Illuminate\Routing\Controller
 
     /** @var Request|BaseRequest $req */
     protected $req;
+
+    private User $authUser;
 
     /**
      * if defined, all controller action request passed validated by this,
@@ -37,6 +41,14 @@ class Controller extends \Illuminate\Routing\Controller
         $this->req = $request;
     }
 
+    final protected function getAuthUser(): User
+    {
+        if (!isset($this->authUser)) {
+            $this->authUser = auth()->user() ?: (new User());
+        }
+        return $this->authUser;
+    }
+
 
     /**
      * Execute an action on the controller.
@@ -44,7 +56,7 @@ class Controller extends \Illuminate\Routing\Controller
      * @param string $method
      * @param array $parameters
      * @return \Symfony\Component\HttpFoundation\Response
-     * @throws ControllerException|\Illuminate\Contracts\Container\BindingResolutionException
+     * @throws ControllerException|BindingResolutionException
      */
     public function callAction($method, $parameters)
     {
@@ -60,7 +72,7 @@ class Controller extends \Illuminate\Routing\Controller
 
     /**
      * @param null|string|Request $validatorClass
-     * @throws ControllerException|\Illuminate\Contracts\Container\BindingResolutionException
+     * @throws ControllerException|BindingResolutionException
      */
     protected function validateWith(?string $validatorClass = null): void
     {

@@ -44,7 +44,7 @@ class User extends Authenticatable
      * Client secret: qI57fOWK9inv6HXauu4Lu7P7Depi5nAXVk47j5yz
      */
     use HasFactory, Notifiable, HasApiTokens;
-    private $jogok = [];
+    private array $jogok = [];
 
     /**
      * The attributes that are mass assignable.

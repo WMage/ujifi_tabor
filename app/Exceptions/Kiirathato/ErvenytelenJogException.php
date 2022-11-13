@@ -8,11 +8,13 @@
 
 namespace App\Exceptions\Kiirathato;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Throwable;
 
 class ErvenytelenJogException extends KiirathatoException
 {
-    protected $user, $permissionName;
+    protected ?Authenticatable $user;
+    protected string $permissionName;
 
     public function __construct(string $permissionName, Throwable $previous = null)
     {
