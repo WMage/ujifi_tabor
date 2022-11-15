@@ -15,7 +15,9 @@ use App\Http\Requests\BaseRequest;
  * @property-read string $szallas_kulcsszo
  * @property-read array|int[] $tabor_napok_lista
  * @property-read array|int[] $dieta_erzekenyseg_lista
+ * @property-read string $dieta_erzekenyseg_tovabbi
  * @property-read array|int[] $segito_munka_lista
+ * @property-read string $segito_munka_tovabbi
  */
 class JelentkezesRequest extends BaseRequest
 {

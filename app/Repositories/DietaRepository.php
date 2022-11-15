@@ -21,6 +21,7 @@ class DietaRepository extends MainRepository
     /** @var string|Dieta */
     protected $model = Dieta::class;
 
+    /** @return Dieta[] */
     public function ujErtekSzovegbol(string $bemenet): array
     {
         $darabok = explode(',', $bemenet);

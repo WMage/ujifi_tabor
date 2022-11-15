@@ -23,6 +23,7 @@ class SegitomunkaRepository extends MainRepository
     /** @var string|Dieta */
     protected $model = Segitomunka::class;
 
+    /** @return Segitomunka[] */
     public function ujErtekSzovegbol(string $bemenet): array
     {
         $darabok = explode(',', $bemenet);

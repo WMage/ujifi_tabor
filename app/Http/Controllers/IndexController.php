@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\Kiirathato\ControllerException;
 use App\Http\Response\ControllerResponse;
+use App\Models\Aszf;
 use App\Models\Dieta;
 use App\Models\Jelentkezo;
+use App\Models\JelentkezoDieta;
 use App\Models\Segitomunka;
 use App\Models\Tabor;
 use App\Repositories\DietaRepository;
@@ -56,8 +58,9 @@ class IndexController extends Controller
         //</editor-fold>
 
         //<editor-fold desc="ASZF">
-        //$tabor = $taborRepo->findOrFail($tabor_id);
-        $aszf = '';//Aszf::findOrFail($tabor->ID_aszf)->text;
+        /** @var Tabor $tabor */
+        $tabor = $taborRepo->findOrFail($tabor_id);
+        $aszf = Aszf::findOrFail($tabor->ID_aszf)->text;
         //</editor-fold>
 
         //<editor-fold desc="TABOR_NAPOK">
@@ -102,9 +105,9 @@ class IndexController extends Controller
             return null;
         }
         $dietaRepo = DietaRepository::getInstance();
-        $dietak = $dietaRepo->ujErtekSzovegbol($this->req->post('dieta_erzekenyseg_tovabbi') ?: '');
+        $dietak = $dietaRepo->ujErtekSzovegbol($this->req->dieta_erzekenyseg_tovabbi ?: '');
         $segitoRepo = SegitomunkaRepository::getInstance();
-        $munkak = $segitoRepo->ujErtekSzovegbol($this->req->post('segito_munka_tovabbi') ?: '');
+        $munkak = $segitoRepo->ujErtekSzovegbol($this->req->segito_munka_tovabbi ?: '');
 
         $userRepo = UserRepository::getInstance();
         try {
@@ -128,19 +131,21 @@ class IndexController extends Controller
             if (Jelentkezo::where($data)->first() !== null) {
                 throw new ControllerException('A jelentkezés már létezik');
             }
-            $jelentkezo = Jelentkezo::create([
-                'ID_tabor' => $tabor->ID,
-                'nev_elotag' => $this->req->nev_elotag,
-                'nev_vezetek' => $this->req->nev_vezetek,
-                'nev_kereszt' => $this->req->nev_kereszt,
-                'email' => $this->req->email,
-                'szuletesnap' => $this->req->szuletesnap,
-                //'nem' => $this->req->nem,
-                'szallas_kulcsszo' => $this->req->szallas_kulcsszo,
-                'ID_aszf' => $tabor->ID_aszf,
-                'ID_user' => $user->id,
-                'MOD_user' => $this->getAuthUser()->id,
-            ]);
+            $jelentkezo = Jelentkezo::create($data);
+
+            $kijeloltDietaIDk = array_merge(
+                $this->req->dieta_erzekenyseg_lista,
+                array_column($dietak, 'ID')
+            );
+            $jelentkezoDietaInsertable = [];
+            foreach ($kijeloltDietaIDk as $k => $ID) {
+                $jelentkezoDietaInsertable[] = [
+                    'ID_dieta' => $ID,
+                    'ID_jelentkezo' => $jelentkezo->ID
+                ];
+            }
+            JelentkezoDieta::insert($jelentkezoDietaInsertable);
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
