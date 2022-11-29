@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 
 /**
@@ -28,6 +31,7 @@ use Illuminate\Support\Collection;
 class Csoport extends BaseModel
 {
     protected $table = "csoport";
+
     protected $fillable = [
         "nev",
         "hely",
@@ -35,16 +39,17 @@ class Csoport extends BaseModel
         "ID_vezeto2",
         "ID_tabor",
     ];
+
     protected $casts = [
+        "ID" => "int",
         "nev" => "string",
         "hely" => "string",
         "ID_vezeto1" => "int",
         "ID_vezeto2" => "int",
         "ID_tabor" => "int",
-
     ];
 
-    public function vezeto1()
+    public function vezeto1(): HasOne
     {
         return $this->hasOne(
             Jelentkezo::class,
@@ -53,7 +58,7 @@ class Csoport extends BaseModel
         );
     }
 
-    public function vezeto2()
+    public function vezeto2(): HasOne
     {
         return $this->hasOne(
             Jelentkezo::class,
@@ -74,7 +79,7 @@ class Csoport extends BaseModel
         return $ret;
     }
 
-    public function tagok()
+    public function tagok(): HasMany
     {
         return $this->hasMany(
             Jelentkezo::class,
@@ -83,7 +88,7 @@ class Csoport extends BaseModel
         );
     }
 
-    public function tabor()
+    public function tabor(): BelongsTo
     {
         return $this->belongsTo(
             Tabor::class,

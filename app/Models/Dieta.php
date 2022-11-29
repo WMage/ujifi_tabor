@@ -16,6 +16,7 @@ class Dieta extends BaseModel
         'ID' => 'int',
         'megnevezes' => 'string'
     ];
+
     protected $fillable = ['ID', 'megnevezes'];
 
     public function jelentkezok(): HasManyThrough
