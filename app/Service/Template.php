@@ -46,14 +46,14 @@ class Template extends Singleton
     }
 
     /**
-     * @function generateChecbox generates html Checbox from list by selected array
+     * @function generateCheckbox generates html Checkbox from list by selected array
      * @param string $name
      * @param array $list
      * @param array $selected id of default selected values
      * @param array $match field matching
      * @return string
      */
-    public static function generateChecbox($name, $list, $selected = array(), $match = array('ID', 'text'))
+    public static function generateCheckbox(string $name, array $list, array $selected = [], array $match = ['ID', 'text']): string
     {
         $ret = "";
         foreach ($list as $option) {

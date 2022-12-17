@@ -27,7 +27,7 @@ class DietaRepository extends MainRepository
         $darabok = explode(',', $bemenet);
         $ret = [];
         foreach ($darabok as $k => $megnevezes) {
-            $ret[] = $this::firstOrCreate(['megnevezes' => $megnevezes]);
+            $ret[] = self::firstOrCreate(['megnevezes' => $megnevezes]);
         }
         return $ret;
     }

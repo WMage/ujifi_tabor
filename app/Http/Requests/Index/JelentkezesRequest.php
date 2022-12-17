@@ -14,6 +14,7 @@ use App\Http\Requests\BaseRequest;
  * @property-read string $szuletesnap
  * @property-read string $szallas_kulcsszo
  * @property-read array|int[] $tabor_napok_lista
+ * @property-read array|int[] $tabor_etkezes_lista
  * @property-read array|int[] $dieta_erzekenyseg_lista
  * @property-read string $dieta_erzekenyseg_tovabbi
  * @property-read array|int[] $segito_munka_lista
@@ -32,11 +33,13 @@ class JelentkezesRequest extends BaseRequest
             'varos' => ['required', 'string'],
             'szuletesnap' => ['required', 'string'],
             'szallas_kulcsszo' => ['string', 'nullable'],
-            'tabor_napok_lista' => ['required', 'array'],
+            'tabor_napok_lista' => [/*'required', */'array'],
+            'tabor_etkezes_lista' => [/*'required',*/ 'array'],
             'dieta_erzekenyseg_lista' => ['required_without:dieta_erzekenyseg_tovabbi', 'array'],
             'dieta_erzekenyseg_tovabbi' => ['required_without:dieta_erzekenyseg_lista', 'string', 'nullable'],
             'segito_munka_lista' => ['required_without:segito_munka_tovabbi', 'array'],
             'segito_munka_tovabbi' => ['required_without:segito_munka_lista', 'string', 'nullable'],
+            'aszf' => ['required', 'accepted']
         ];
     }
 }

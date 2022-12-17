@@ -66,7 +66,7 @@ use \App\Service\Template;
                 @if (!empty($tabor_napok_list)):
                 <tr>
                     <td>Szállás</td>
-                    <td><?= Template::generateChecbox('tabor_napok_lista', $tabor_napok_list, $selected_tabor_napok_list, array('ID', 'datum')) ?></td>
+                    <td><?= Template::generateCheckbox('tabor_napok_lista', $tabor_napok_list, $selected_tabor_napok_list, array('ID', 'datum')) ?></td>
                 </tr>
                 @endif;
                 <tr>
@@ -76,7 +76,7 @@ use \App\Service\Template;
                 <tr>
                     <td>Ételérzékenység/diéta</td>
                     <td>
-                        <?= Template::generateChecbox('dieta_erzekenyseg_lista', $dieta_list, $selected_dieta_list, array('ID', 'megnevezes')) ?>
+                        <?= Template::generateCheckbox('dieta_erzekenyseg_lista', $dieta_list, $selected_dieta_list, array('ID', 'megnevezes')) ?>
                         Egyéb(vesszővel tagolt):
                         <input
                                 name="dieta_erzekenyseg_tovabbi"
@@ -89,7 +89,7 @@ use \App\Service\Template;
                 <tr>
                     <td>Szívesen segítek ezekben</td>
                     <td>
-                        <?= Template::generateChecbox('segito_munka_lista', $segito_munka_list, $selected_segito_munka_list, array('alias', 'megnevezes')) ?>
+                        <?= Template::generateCheckbox('segito_munka_lista', $segito_munka_list, $selected_segito_munka_list, array('alias', 'megnevezes')) ?>
                         Egyéb(vesszővel tagolt):
                         <input
                                 name="segito_munka_tovabbi"
@@ -100,7 +100,11 @@ use \App\Service\Template;
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td>
+                        ASZF elfogadása
+                        <input name="aszf" type="checkbox" title="">
+                    </td>
+                    <td>
                         {{ $aszf }}
                     </td>
                 </tr>

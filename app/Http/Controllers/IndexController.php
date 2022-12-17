@@ -8,6 +8,7 @@ use App\Models\Aszf;
 use App\Models\Dieta;
 use App\Models\Jelentkezo;
 use App\Models\JelentkezoDieta;
+use App\Models\JelentkezoSegitomunka;
 use App\Models\Segitomunka;
 use App\Models\Tabor;
 use App\Repositories\DietaRepository;
@@ -28,7 +29,7 @@ class IndexController extends Controller
 
     /**
      * @return ControllerResponse
-     * @throws ReflectionException
+     * @throws ReflectionException|ControllerException
      */
     public function index(): ControllerResponse
     {
@@ -66,17 +67,23 @@ class IndexController extends Controller
         //<editor-fold desc="TABOR_NAPOK">
         $napokRepo = NapokRepository::getInstance();
         $selected_tabor_napok_list = $this->req->tabor_napok_lista ?: [];
-        $tabor_napok_list = $napokRepo->getTaborNapok($tabor_id);
+        $tabor_napok_list = $napokRepo->getTaborSzallas($tabor_id);
+        //</editor-fold>
+
+        //<editor-fold desc="ETKEZES">
+        $napokRepo = NapokRepository::getInstance();
+        $selected_tabor_etkezes_list = $this->req->tabor_etkezes_lista ?: [];
+        $tabor_etkezes_list = $napokRepo->getTaborEtkezes($tabor_id);
         //</editor-fold>
 
         //<editor-fold desc="DIETA">
         $selected_dieta_list = $this->req->dieta_erzekenyseg_lista ?: [];
-        $dieta_list = Dieta::where('megnevezes', '<>', '')->get();
+        $dieta_list = Dieta::where('megnevezes', '<>', '')->getQuery()->getArray();
         //</editor-fold>
 
         //<editor-fold desc="SEGITO_MUNKA">
         $selected_segito_munka_list = $this->req->segito_munka_lista ?: [];
-        $segito_munka_list = Segitomunka::where('alias', '<>', '')->get();
+        $segito_munka_list = Segitomunka::where('alias', '<>', '')->getQuery()->getArray();
         //</editor-fold>
 
         return new ControllerResponse(
@@ -86,6 +93,8 @@ class IndexController extends Controller
                 "tabor_id",
                 "tabor_napok_list",
                 "selected_tabor_napok_list",
+                'selected_tabor_etkezes_list',
+                'tabor_etkezes_list',
                 "dieta_list",
                 "selected_dieta_list",
                 "segito_munka_list",
@@ -133,6 +142,7 @@ class IndexController extends Controller
             }
             $jelentkezo = Jelentkezo::create($data);
 
+            //<editor-fold desc="DIETA CSATOLÁS">
             $kijeloltDietaIDk = array_merge(
                 $this->req->dieta_erzekenyseg_lista,
                 array_column($dietak, 'ID')
@@ -145,6 +155,22 @@ class IndexController extends Controller
                 ];
             }
             JelentkezoDieta::insert($jelentkezoDietaInsertable);
+            //</editor-fold>
+
+            //<editor-fold desc="MUNKA CSATOLÁS">
+            $kijeloltMunkaIDk = array_merge(
+                $this->req->segito_munka_lista,
+                array_column($munkak, 'ID')
+            );
+            $jelentkezoMunkaInsertable = [];
+            foreach ($kijeloltMunkaIDk as $k => $ID) {
+                $jelentkezoMunkaInsertable[] = [
+                    'ID_segito_munka' => $ID,
+                    'ID_jelentkezo' => $jelentkezo->ID
+                ];
+            }
+            JelentkezoSegitomunka::insert($jelentkezoMunkaInsertable);
+            //</editor-fold>
 
             DB::commit();
         } catch (\Exception $e) {
