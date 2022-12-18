@@ -3,9 +3,11 @@ use \App\Service\Template;
 /** @var \Illuminate\Support\Collection|\App\Models\Tabor[] $tabor_list */
 /** @var int $tabor_id */
 /** @var int[] $tabor_napok_list */
+/** @var int[] $tabor_etkezes_list */
 /** @var int[] $selected_tabor_napok_list */
 /** @var string[] $dieta_list */
 /** @var string[] $selected_dieta_list */
+/** @var string[] $selected_tabor_etkezes_list */
 /** @var string[] $segito_munka_list */
 /** @var string[] $selected_segito_munka_list */
 ?>
@@ -63,15 +65,18 @@ use \App\Service\Template;
                     </td>
                 </tr>
 
-                @if (!empty($tabor_napok_list)):
-                <tr>
-                    <td>Szállás</td>
-                    <td><?= Template::generateCheckbox('tabor_napok_lista', $tabor_napok_list, $selected_tabor_napok_list, array('ID', 'datum')) ?></td>
-                </tr>
+                @if (!empty($tabor_napok_list))
+                    :
+                    <tr>
+                        <td>Szállás</td>
+                        <td><?= Template::generateCheckbox('tabor_napok_lista', $tabor_napok_list, $selected_tabor_napok_list, array('ID', 'datum')) ?></td>
+                    </tr>
                 @endif;
                 <tr>
                     <td>Étkezés</td>
-                    <td><input name="asd" type="text" title=""></td>
+                    <td>
+                        <?= \App\Service\JelentkezesTemplate::generateEtkezesCheckbox($tabor_etkezes_list, $selected_tabor_etkezes_list) ?>
+                    </td>
                 </tr>
                 <tr>
                     <td>Ételérzékenység/diéta</td>
@@ -79,10 +84,10 @@ use \App\Service\Template;
                         <?= Template::generateCheckbox('dieta_erzekenyseg_lista', $dieta_list, $selected_dieta_list, array('ID', 'megnevezes')) ?>
                         Egyéb(vesszővel tagolt):
                         <input
-                                name="dieta_erzekenyseg_tovabbi"
-                                type="text"
-                                title=""
-                                value="{{ oldV('dieta_erzekenyseg_tovabbi') }}"
+                            name="dieta_erzekenyseg_tovabbi"
+                            type="text"
+                            title=""
+                            value="{{ oldV('dieta_erzekenyseg_tovabbi') }}"
                         >
                     </td>
                 </tr>
@@ -92,10 +97,10 @@ use \App\Service\Template;
                         <?= Template::generateCheckbox('segito_munka_lista', $segito_munka_list, $selected_segito_munka_list, array('alias', 'megnevezes')) ?>
                         Egyéb(vesszővel tagolt):
                         <input
-                                name="segito_munka_tovabbi"
-                                type="text"
-                                title=""
-                                value="{{ oldV('segito_munka_tovabbi') }}"
+                            name="segito_munka_tovabbi"
+                            type="text"
+                            title=""
+                            value="{{ oldV('segito_munka_tovabbi') }}"
                         >
                     </td>
                 </tr>

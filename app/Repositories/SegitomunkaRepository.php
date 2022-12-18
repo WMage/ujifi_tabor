@@ -29,7 +29,9 @@ class SegitomunkaRepository extends MainRepository
         $darabok = explode(',', $bemenet);
         $ret = [];
         foreach ($darabok as $k => $megnevezes) {
-            $ret[] = self::firstOrCreate(['megnevezes' => $megnevezes]);
+            if (!empty($megnevezes)) {
+                $ret[] = self::firstOrCreate(['megnevezes' => $megnevezes]);
+            }
         }
         return $ret;
     }

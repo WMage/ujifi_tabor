@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
@@ -36,4 +38,22 @@ class KedvezmenyesDatum extends BaseModel
 
     protected $dates = ['datum'];
 
+
+    public function tabor(): BelongsTo
+    {
+        return $this->belongsTo(
+            Tabor::class,
+            "ID_tabor",
+            "ID"
+        );
+    }
+
+    public function taborArak(): HasMany
+    {
+        return $this->hasMany(
+            TaborAr::class,
+            "ID",
+            "ID_kedvdatum"
+        );
+    }
 }

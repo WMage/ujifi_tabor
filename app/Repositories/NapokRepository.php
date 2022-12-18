@@ -8,7 +8,7 @@
 
 namespace App\Repositories;
 
-use App\Entities\TaborArCollectionEntity;
+use App\Entities\TaborArCalculatorEntity;
 use App\Models\Napok;
 use App\Models\Tabor;
 use App\Models\TaborAr;
@@ -36,6 +36,10 @@ class NapokRepository extends MainRepository
 
     public function getTaborSzallas(int $taborId): array
     {
+        $taborAr = TaborArCalculatorEntity::getInstance($taborId);
+        if (!$taborAr->vanSzallas()) {
+            return [];
+        }
         return $this->model::where('ID_tabor', '=', $taborId)
             ->where('szallas_kerheto', '=', 1)
             ->orderBy('datum')
@@ -45,23 +49,26 @@ class NapokRepository extends MainRepository
 
     public function getTaborEtkezes(int $taborId): array
     {
+        $taborAr = TaborArCalculatorEntity::getInstance($taborId);
+        if (!$taborAr->vanEtkezes()) {
+            return [];
+        }
         return $this->model::where('ID_tabor', '=', $taborId)
-            ->where(function(Builder $q) use($taborId) {
-                $taborAr = new TaborArCollectionEntity($taborId);
+            ->where(function (Builder $q) use ($taborAr) {
                 return $q
-                    ->when($taborAr->vanReggeli(), function (Builder $q){
+                    ->when($taborAr->vanReggeli(), function (Builder $q) {
                         return $q->orWhere('reggeli_kerheto', '=', 1);
                     })
-                    ->when($taborAr->vanTizorai(), function (Builder $q){
+                    ->when($taborAr->vanTizorai(), function (Builder $q) {
                         return $q->orWhere('tizorai_kerheto', '=', 1);
                     })
-                    ->when($taborAr->vanEbed(), function (Builder $q){
+                    ->when($taborAr->vanEbed(), function (Builder $q) {
                         return $q->orWhere('ebed_kerheto', '=', 1);
                     })
-                    ->when($taborAr->vanUzsonna(), function (Builder $q){
+                    ->when($taborAr->vanUzsonna(), function (Builder $q) {
                         return $q->orWhere('uzsonna_kerheto', '=', 1);
                     })
-                    ->when($taborAr->vanVacsora(), function (Builder $q){
+                    ->when($taborAr->vanVacsora(), function (Builder $q) {
                         return $q->orWhere('vacsora_kerheto', '=', 1);
                     });
             })

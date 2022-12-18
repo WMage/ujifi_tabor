@@ -74,6 +74,8 @@ class IndexController extends Controller
         $napokRepo = NapokRepository::getInstance();
         $selected_tabor_etkezes_list = $this->req->tabor_etkezes_lista ?: [];
         $tabor_etkezes_list = $napokRepo->getTaborEtkezes($tabor_id);
+        //dd($selected_tabor_etkezes_list, $tabor_etkezes_list);
+        var_dump($selected_tabor_etkezes_list, $selected_tabor_napok_list);
         //</editor-fold>
 
         //<editor-fold desc="DIETA">
@@ -159,7 +161,12 @@ class IndexController extends Controller
 
             //<editor-fold desc="MUNKA CSATOLÁS">
             $kijeloltMunkaIDk = array_merge(
-                $this->req->segito_munka_lista,
+                array_column(
+                    array_map(function ($val) {
+                        return \App\Models\Segitomunka::where('alias', '=', $val)->firstOrFail();
+                    }, $this->req->segito_munka_lista),
+                    'ID'
+                ),
                 array_column($munkak, 'ID')
             );
             $jelentkezoMunkaInsertable = [];

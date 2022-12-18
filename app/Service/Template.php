@@ -62,6 +62,28 @@ class Template extends Singleton
         return $ret;
     }
 
+    /**
+     * @param string $name
+     * @param array<int, array> $list list of array where $match's ID & VALUES placed
+     * @param array $selected
+     * @param array{ID:string, ROW:string, VALUES:array<string, string>} $match
+     * @return string
+     */
+    public static function generateMultiCheckbox(string $name, array $list, array $selected = [], array $match = ['ID' => 'ID', 'ROW' => 'day', 'VALUES' => ['field_text'=>'field_value']]): string
+    {
+        $ret = '';
+        foreach ($list as $option) {
+            $ret .= $option[$match['ROW']] ?? ' - ';
+            foreach ($match['VALUES'] as $fieldKey=>$fieldValue) {
+                if ($option[$fieldKey] ?? false) {
+                    $ret .= "<input type='checkbox' name='" . $name . "[]' value='$fieldKey-{$option[$match['ID']]}'> - " . $fieldValue;
+                }
+            }
+            $ret .= "<br />\n";
+        }
+        return $ret;
+    }
+
     //TODO: redirect need refactor to work
     public static function redirect($action = false, $ctrl = false)
     {

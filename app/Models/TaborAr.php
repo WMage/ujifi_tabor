@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -21,16 +22,17 @@ use Illuminate\Support\Facades\DB;
  * @property int|null $ID_kor
  * @property int|null $ID_kedvdatum
  *
- * --relations
+ * --relations //TODO relations
  * @property Tabor $tabor
  * @property Kor $kor
- * @property KedvDatum $kedvezmenyes_datum
+ * @property KedvezmenyesDatum $kedvezmenyesDatum
  *
  */
 class TaborAr extends BaseModel
 {
     protected $table = 'taborar';
     protected $primaryKey = 'ID_tabor';
+    public $incrementing = false;
 
     protected $casts = [
         'ID_tabor' => 'int',
@@ -63,6 +65,15 @@ class TaborAr extends BaseModel
         return $this->belongsTo(
             Tabor::class,
             "ID_tabor",
+            "ID"
+        );
+    }
+
+    public function kedvezmenyesDatum(): HasOne
+    {
+        return $this->hasOne(
+            KedvezmenyesDatum::class,
+            "ID_kedvdatum",
             "ID"
         );
     }
