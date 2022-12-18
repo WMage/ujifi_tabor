@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\TaborArCalculatorEntity;
 use App\Exceptions\Kiirathato\ControllerException;
 use App\Http\Response\ControllerResponse;
 use App\Models\Aszf;
@@ -33,6 +34,8 @@ class IndexController extends Controller
      */
     public function index(): ControllerResponse
     {
+        /*$e = TaborArCalculatorEntity::getInstance(1, 1);
+        dd($e->getEtkezesAr());*/
         if (($j = $this->_jelentkezesRogzitese()) !== null) {
             return $this->_jelentkezesSikeresVisszajelzes($j);
         }

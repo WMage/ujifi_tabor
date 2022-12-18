@@ -7,12 +7,12 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $ID
  * @property Carbon|string $datum
- * @property bool $reggeli_kerheto
- * @property bool $tizorai_kerheto
- * @property bool $ebed_kerheto
- * @property bool $uzsonna_kerheto
- * @property bool $vacsora_kerheto
- * @property bool $szallas_kerheto
+ * @property bool $reggeli
+ * @property bool $tizorai
+ * @property bool $ebed
+ * @property bool $uzsonna
+ * @property bool $vacsora
+ * @property bool $szallas
  * @property int $ID_tabor
  */
 class Napok extends BaseModel

@@ -18,26 +18,26 @@ class NapokTableSeeder extends Seeder
             0 =>
             array (
                 'datum' => '2022-04-07',
-                'ebed_kerheto' => 0,
+                'ebed' => 0,
                 'ID' => 5,
                 'ID_tabor' => 1,
-                'reggeli_kerheto' => 0,
-                'szallas_kerheto' => 0,
-                'tizorai_kerheto' => 0,
-                'uzsonna_kerheto' => 0,
-                'vacsora_kerheto' => 0,
+                'reggeli' => 0,
+                'szallas' => 0,
+                'tizorai' => 0,
+                'uzsonna' => 0,
+                'vacsora' => 0,
             ),
             1 =>
             array (
                 'datum' => '2022-04-06',
-                'ebed_kerheto' => 0,
+                'ebed' => 0,
                 'ID' => 6,
                 'ID_tabor' => 1,
-                'reggeli_kerheto' => 0,
-                'szallas_kerheto' => 0,
-                'tizorai_kerheto' => 0,
-                'uzsonna_kerheto' => 0,
-                'vacsora_kerheto' => 0,
+                'reggeli' => 0,
+                'szallas' => 0,
+                'tizorai' => 0,
+                'uzsonna' => 0,
+                'vacsora' => 0,
             ),
         ));
 

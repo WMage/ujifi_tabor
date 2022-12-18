@@ -10,10 +10,7 @@ namespace App\Repositories;
 
 use App\Entities\TaborArCalculatorEntity;
 use App\Models\Napok;
-use App\Models\Tabor;
-use App\Models\TaborAr;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 
 /**
  * Class NapokRepository
@@ -41,7 +38,7 @@ class NapokRepository extends MainRepository
             return [];
         }
         return $this->model::where('ID_tabor', '=', $taborId)
-            ->where('szallas_kerheto', '=', 1)
+            ->where('szallas', '=', 1)
             ->orderBy('datum')
             ->getQuery()
             ->getArray();
@@ -57,19 +54,19 @@ class NapokRepository extends MainRepository
             ->where(function (Builder $q) use ($taborAr) {
                 return $q
                     ->when($taborAr->vanReggeli(), function (Builder $q) {
-                        return $q->orWhere('reggeli_kerheto', '=', 1);
+                        return $q->orWhere('reggeli', '=', 1);
                     })
                     ->when($taborAr->vanTizorai(), function (Builder $q) {
-                        return $q->orWhere('tizorai_kerheto', '=', 1);
+                        return $q->orWhere('tizorai', '=', 1);
                     })
                     ->when($taborAr->vanEbed(), function (Builder $q) {
-                        return $q->orWhere('ebed_kerheto', '=', 1);
+                        return $q->orWhere('ebed', '=', 1);
                     })
                     ->when($taborAr->vanUzsonna(), function (Builder $q) {
-                        return $q->orWhere('uzsonna_kerheto', '=', 1);
+                        return $q->orWhere('uzsonna', '=', 1);
                     })
                     ->when($taborAr->vanVacsora(), function (Builder $q) {
-                        return $q->orWhere('vacsora_kerheto', '=', 1);
+                        return $q->orWhere('vacsora', '=', 1);
                     });
             })
             ->orderBy('datum')

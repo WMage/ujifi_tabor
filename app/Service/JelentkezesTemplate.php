@@ -22,11 +22,11 @@ class JelentkezesTemplate extends Template
                 'ID' => 'ID',
                 'ROW' => 'datum',
                 'VALUES' => [
-                    'reggeli_kerheto' => 'Reggeli',
-                    'tizorai_kerheto' => 'Tízórai',
-                    'ebed_kerheto' => 'Ebéd',
-                    'uzsonna_kerheto' => 'Uzsonna',
-                    'vacsora_kerheto' => 'Vacsora',
+                    'reggeli' => 'Reggeli',
+                    'tizorai' => 'Tízórai',
+                    'ebed' => 'Ebéd',
+                    'uzsonna' => 'Uzsonna',
+                    'vacsora' => 'Vacsora',
                 ]
             ]
         );

@@ -35,6 +35,7 @@ use Illuminate\Support\Collection;
  * @property Aszf $aszf
  * @property Collection|Jog[] jogok
  * @property Collection|Segitomunka[] munkak
+ * @property Collection|Napok[] napok
  */
 class Jelentkezo extends BaseModel
 {
@@ -146,6 +147,18 @@ class Jelentkezo extends BaseModel
             "ID",
             "ID",
             "ID_segito_munka"
+        );
+    }
+
+    public function napok(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Napok::class,
+            JelentkezoNapok::class,
+            "ID_jelentkezo",
+            "ID",
+            "ID",
+            "ID_napok"
         );
     }
 

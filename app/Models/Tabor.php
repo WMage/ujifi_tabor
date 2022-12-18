@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -78,7 +80,7 @@ class Tabor extends BaseModel
             }));
     }
 
-    public function napok()
+    public function napok(): HasMany
     {
         return $this->hasMany(
             Napok::class,
@@ -87,7 +89,7 @@ class Tabor extends BaseModel
         );
     }
 
-    public function csoportok()
+    public function csoportok(): HasMany
     {
         return $this->hasMany(
             Csoport::class,
@@ -96,7 +98,7 @@ class Tabor extends BaseModel
         );
     }
 
-    public function jelentkezok()
+    public function jelentkezok(): HasMany
     {
         return $this->hasMany(
             Jelentkezo::class,
@@ -105,7 +107,7 @@ class Tabor extends BaseModel
         );
     }
 
-    public function aszf()
+    public function aszf(): HasOne
     {
         return $this->hasOne(
             Aszf::class,
@@ -151,7 +153,7 @@ class Tabor extends BaseModel
             ->whereIntegerNotInRaw(Jelentkezo::getTableName() . ".ID", $vezetok);
     }
 
-    public function scopeRegisztracioAktiv(Builder $builder)
+    public function scopeRegisztracioAktiv(Builder $builder): Builder
     {
         return $builder
             ->where(function (Builder $b) {
